@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Parcel Details — LandGov</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+
+</head>
+
+
+<body>
+
+<header class="site-header">
+
+  <div class="nav-inner">
+
+    <a
+      href="index.html"
+      class="brand"
+    >
+
+      <div
+        class="brand-icon"
+        aria-hidden="true"
+      >
+
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 36 36"
+          fill="none"
+        >
+
+          <rect
+            width="36"
+            height="36"
+            rx="8"
+            fill="#1a6e8a"
+          />
+
+          <path
+            d="M8 26 L14 10 L21 18 L26 12 L28 26 Z"
+            fill="none"
+            stroke="#7dd3e8"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+
+          <circle
+            cx="26"
+            cy="12"
+            r="2.5"
+            fill="#f0c040"
+          />
+
+          <line
+            x1="8"
+            y1="26"
+            x2="28"
+            y2="26"
+            stroke="#7dd3e8"
+            stroke-width="1.2"
+          />
+
+        </svg>
+
+      </div>
+
+
+      <div class="brand-text">
+
+        <span class="brand-name">
+          LandGov
+        </span>
+
+        <span class="brand-tagline">
+          Digital Land Governance
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <nav
+      class="nav-links"
+      aria-label="Main navigation"
+    >
+
+      <a
+        href="index.html"
+        class="nav-link"
+      >
+        Home
+      </a>
+
+      <a
+        href="#"
+        class="nav-link"
+      >
+        Help
+      </a>
+
+      <a
+        href="#"
+        class="nav-link btn-outline"
+      >
+        Citizen Login
+      </a>
+
+      <a
+        href="#"
+        class="nav-link btn-solid"
+      >
+        Officer Login
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<main class="details-page">
+
+  <section class="details-hero">
+
+    <div class="details-inner">
+
+      <a
+        href="index.html"
+        class="back-link"
+      >
+        ← Back to Map
+      </a>
+
+
+      <div class="details-heading-row">
+
+        <div>
+
+          <p class="details-eyebrow">
+            PARCEL 360°
+          </p>
+
+          <h1 id="detailsParcelId">
+            P-103
+          </h1>
+
+          <p class="details-subtitle">
+            Complete land parcel information
+          </p>
+
+        </div>
+
+
+        <div
+          class="details-status"
+          id="detailsStatus"
+        >
+          Registered
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="details-content">
+
+    <div class="details-inner">
+
+
+      <!-- OVERVIEW -->
+
+      <div class="details-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            01
+          </span>
+
+          <div>
+
+            <h2>
+              Parcel Overview
+            </h2>
+
+            <p>
+              Basic identification and ownership information
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="details-grid">
+
+          <div class="detail-card">
+
+            <span>Parcel ID</span>
+
+            <strong id="detailParcelId">
+              P-103
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Owner</span>
+
+            <strong id="detailOwner">
+              Raj Kumar
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Area</span>
+
+            <strong id="detailArea">
+              1,250 m²
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Land Use</span>
+
+            <strong id="detailLandUse">
+              Residential
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LEGAL -->
+
+      <div class="details-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            02
+          </span>
+
+          <div>
+
+            <h2>
+              Legal & Registration
+            </h2>
+
+            <p>
+              Registration and ownership verification status
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="details-grid">
+
+          <div class="detail-card">
+
+            <span>Registration</span>
+
+            <strong
+              id="detailRegistration"
+              class="detail-good"
+            >
+              Verified
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Mutation</span>
+
+            <strong
+              id="detailMutation"
+              class="detail-good"
+            >
+              Completed
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Tax</span>
+
+            <strong
+              id="detailTax"
+              class="detail-good"
+            >
+              Paid
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Dispute</span>
+
+            <strong
+              id="detailDispute"
+              class="detail-good"
+            >
+              None
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LAND USE -->
+
+      <div class="details-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            03
+          </span>
+
+          <div>
+
+            <h2>
+              Planning & Zoning
+            </h2>
+
+            <p>
+              Land-use classification and development status
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="details-grid">
+
+          <div class="detail-card">
+
+            <span>Zoning</span>
+
+            <strong id="detailZoning">
+              Residential
+            </strong>
+
+          </div>
+
+
+          <div class="detail-card">
+
+            <span>Building Approval</span>
+
+            <strong
+              id="detailBuilding"
+              class="detail-good"
+            >
+              Approved
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FUTURE GIS -->
+
+      <div class="details-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            04
+          </span>
+
+          <div>
+
+            <h2>
+              GIS Reference
+            </h2>
+
+            <p>
+              Spatial reference for this land parcel
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="gis-placeholder">
+
+          <div class="gis-icon">
+            ◎
+          </div>
+
+          <h3>
+            Parcel Geometry
+          </h3>
+
+          <p>
+            Interactive GIS boundary and spatial layers
+            will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <p class="footer-copy">
+
+      © 2026 LandGov —
+      Ministry of Land Resources
+
+      &nbsp;|&nbsp;
+
+      <a href="#">
+        Privacy Policy
+      </a>
+
+      &nbsp;|&nbsp;
+
+      <a href="#">
+        Terms of Use
+      </a>
+
+    </p>
+
+
+    <p class="footer-note">
+      Built for Smart India Hackathon 2026
+    </p>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+const PARCELS = {
+
+  "P-101": {
+    area: "1,140 m²",
+    owner: "Ramesh Kumar",
+    landUse: "Residential",
+    registration: "Verified",
+    mutation: "Completed",
+    tax: "Paid",
+    zoning: "Residential",
+    building: "Approved",
+    dispute: "None",
+    status: "Registered"
+  },
+
+  "P-102": {
+    area: "980 m²",
+    owner: "Sunita Devi",
+    landUse: "Agricultural",
+    registration: "Verified",
+    mutation: "Completed",
+    tax: "Paid",
+    zoning: "Agricultural",
+    building: "Not Applicable",
+    dispute: "None",
+    status: "Registered"
+  },
+
+  "P-103": {
+    area: "1,250 m²",
+    owner: "Raj Kumar",
+    landUse: "Residential",
+    registration: "Verified",
+    mutation: "Completed",
+    tax: "Paid",
+    zoning: "Residential",
+    building: "Approved",
+    dispute: "None",
+    status: "Registered"
+  },
+
+  "P-104": {
+    area: "1,080 m²",
+    owner: "Hari Prasad",
+    landUse: "Commercial",
+    registration: "Under Review",
+    mutation: "Pending",
+    tax: "Paid",
+    zoning: "Commercial",
+    building: "Under Review",
+    dispute: "None",
+    status: "Under Review"
+  },
+
+  "P-105": {
+    area: "1,320 m²",
+    owner: "Meena Sharma",
+    landUse: "Residential",
+    registration: "Verified",
+    mutation: "Completed",
+    tax: "Paid",
+    zoning: "Residential",
+    building: "Approved",
+    dispute: "None",
+    status: "Registered"
+  },
+
+  "P-106": {
+    area: "1,750 m²",
+    owner: "District Board",
+    landUse: "Government",
+    registration: "Verified",
+    mutation: "Completed",
+    tax: "Paid",
+    zoning: "Public / Institutional",
+    building: "Not Applicable",
+    dispute: "None",
+    status: "Govt. Land"
+  }
+
+};
+
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const id =
+  params.get("id") || "P-103";
+
+
+const data =
+  PARCELS[id] || PARCELS["P-103"];
+
+
+document.getElementById(
+  "detailsParcelId"
+).textContent = id;
+
+
+document.getElementById(
+  "detailParcelId"
+).textContent = id;
+
+
+document.getElementById(
+  "detailOwner"
+).textContent = data.owner;
+
+
+document.getElementById(
+  "detailArea"
+).textContent = data.area;
+
+
+document.getElementById(
+  "detailLandUse"
+).textContent = data.landUse;
+
+
+document.getElementById(
+  "detailRegistration"
+).textContent =
+  data.registration;
+
+
+document.getElementById(
+  "detailMutation"
+).textContent =
+  data.mutation;
+
+
+document.getElementById(
+  "detailTax"
+).textContent =
+  data.tax;
+
+
+document.getElementById(
+  "detailZoning"
+).textContent =
+  data.zoning;
+
+
+document.getElementById(
+  "detailBuilding"
+).textContent =
+  data.building;
+
+
+document.getElementById(
+  "detailDispute"
+).textContent =
+  data.dispute;
+
+
+document.getElementById(
+  "detailsStatus"
+).textContent =
+  data.status;
+
+</script>
+
+
+</body>
+
+</html>
