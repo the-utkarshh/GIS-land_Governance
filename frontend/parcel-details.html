@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,7 @@
 
   <link
     rel="preconnect"
-    href="https://fonts.gstatic.com"
+    href="https://fonts.googleapis.com"
     crossorigin
   >
 
@@ -32,6 +33,193 @@
     rel="stylesheet"
     href="css/style.css"
   >
+
+  <style>
+
+    /* =====================================================
+       GIS REFERENCE MAP
+       ===================================================== */
+
+    .gis-map {
+      position: relative;
+      width: 100%;
+      min-height: 500px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(26, 110, 138, 0.18);
+      background:
+        linear-gradient(
+          rgba(26, 110, 138, 0.045) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(26, 110, 138, 0.045) 1px,
+          transparent 1px
+        ),
+        #f4f8f8;
+      background-size: 40px 40px;
+    }
+
+    .gis-map-header {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 5;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #31515b;
+    }
+
+    .gis-map svg {
+      width: 100%;
+      height: 500px;
+      display: block;
+    }
+
+    .gis-road {
+      fill: none;
+      stroke: #d0d6d8;
+      stroke-width: 32;
+    }
+
+    .gis-road-line {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2;
+      stroke-dasharray: 10 10;
+    }
+
+    .gis-water {
+      fill: #dceff4;
+      stroke: #8fcbd9;
+      stroke-width: 2;
+    }
+
+    .gis-green {
+      fill: #e2efe2;
+      stroke: #a9c7aa;
+      stroke-width: 2;
+    }
+
+    .gis-parcel {
+      fill: rgba(255,255,255,0.82);
+      stroke: #55747d;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+      transition:
+        fill 0.25s ease,
+        stroke 0.25s ease,
+        filter 0.25s ease;
+    }
+
+    .gis-parcel.selected {
+      fill: rgba(240,192,64,0.48);
+      stroke: #d39f16;
+      stroke-width: 4;
+      filter: drop-shadow(0 5px 8px rgba(211,159,22,0.3));
+    }
+
+    .gis-parcel-label {
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      fill: #29454e;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .gis-selected-label {
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      fill: #8a6500;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .gis-location {
+      font-family: Inter, sans-serif;
+      font-size: 10px;
+      fill: #668087;
+    }
+
+    .gis-legend {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      z-index: 5;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      font-size: 11px;
+      color: #52676d;
+    }
+
+    .gis-legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 5px 0;
+    }
+
+    .legend-box {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      border: 1px solid #55747d;
+      background: #fff;
+    }
+
+    .legend-selected {
+      background: rgba(240,192,64,0.48);
+      border-color: #d39f16;
+    }
+
+    .legend-road {
+      width: 22px;
+      height: 5px;
+      border-radius: 4px;
+      background: #d0d6d8;
+    }
+
+    .legend-water {
+      background: #dceff4;
+      border-color: #8fcbd9;
+    }
+
+    .gis-coordinates {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f4f8f8;
+      color: #5b7077;
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+
+      .gis-map {
+        min-height: 380px;
+      }
+
+      .gis-map svg {
+        height: 380px;
+      }
+
+      .gis-legend {
+        display: none;
+      }
+
+    }
+
+  </style>
 
 </head>
 
@@ -47,10 +235,7 @@
       class="brand"
     >
 
-      <div
-        class="brand-icon"
-        aria-hidden="true"
-      >
+      <div class="brand-icon" aria-hidden="true">
 
         <svg
           width="36"
@@ -115,31 +300,19 @@
       aria-label="Main navigation"
     >
 
-      <a
-        href="index.html"
-        class="nav-link"
-      >
+      <a href="index.html" class="nav-link">
         Home
       </a>
 
-      <a
-        href="#"
-        class="nav-link"
-      >
+      <a href="#" class="nav-link">
         Help
       </a>
 
-      <a
-        href="#"
-        class="nav-link btn-outline"
-      >
+      <a href="#" class="nav-link btn-outline">
         Citizen Login
       </a>
 
-      <a
-        href="#"
-        class="nav-link btn-solid"
-      >
+      <a href="#" class="nav-link btn-solid">
         Officer Login
       </a>
 
@@ -173,7 +346,7 @@
           </p>
 
           <h1 id="detailsParcelId">
-            P-103
+            Loading...
           </h1>
 
           <p class="details-subtitle">
@@ -187,7 +360,7 @@
           class="details-status"
           id="detailsStatus"
         >
-          Registered
+          Loading...
         </div>
 
       </div>
@@ -234,7 +407,7 @@
             <span>Parcel ID</span>
 
             <strong id="detailParcelId">
-              P-103
+              —
             </strong>
 
           </div>
@@ -245,7 +418,7 @@
             <span>Owner</span>
 
             <strong id="detailOwner">
-              Raj Kumar
+              —
             </strong>
 
           </div>
@@ -256,7 +429,7 @@
             <span>Area</span>
 
             <strong id="detailArea">
-              1,250 m²
+              —
             </strong>
 
           </div>
@@ -267,7 +440,7 @@
             <span>Land Use</span>
 
             <strong id="detailLandUse">
-              Residential
+              —
             </strong>
 
           </div>
@@ -312,7 +485,7 @@
               id="detailRegistration"
               class="detail-good"
             >
-              Verified
+              —
             </strong>
 
           </div>
@@ -326,7 +499,7 @@
               id="detailMutation"
               class="detail-good"
             >
-              Completed
+              —
             </strong>
 
           </div>
@@ -340,7 +513,7 @@
               id="detailTax"
               class="detail-good"
             >
-              Paid
+              —
             </strong>
 
           </div>
@@ -354,7 +527,7 @@
               id="detailDispute"
               class="detail-good"
             >
-              None
+              —
             </strong>
 
           </div>
@@ -364,7 +537,7 @@
       </div>
 
 
-      <!-- LAND USE -->
+      <!-- PLANNING -->
 
       <div class="details-section">
 
@@ -396,7 +569,7 @@
             <span>Zoning</span>
 
             <strong id="detailZoning">
-              Residential
+              —
             </strong>
 
           </div>
@@ -410,7 +583,7 @@
               id="detailBuilding"
               class="detail-good"
             >
-              Approved
+              —
             </strong>
 
           </div>
@@ -420,7 +593,7 @@
       </div>
 
 
-      <!-- FUTURE GIS -->
+      <!-- GIS REFERENCE -->
 
       <div class="details-section">
 
@@ -445,21 +618,246 @@
         </div>
 
 
-        <div class="gis-placeholder">
+        <div class="gis-map">
 
-          <div class="gis-icon">
-            ◎
+          <div class="gis-map-header">
+            GIS PARCEL VIEW
           </div>
 
-          <h3>
-            Parcel Geometry
-          </h3>
 
-          <p>
-            Interactive GIS boundary and spatial layers
-            will appear here.
-          </p>
+          <svg
+            id="gisSvg"
+            viewBox="0 0 900 500"
+            preserveAspectRatio="xMidYMid meet"
+            aria-label="Interactive parcel GIS map"
+          >
 
+            <!-- ROAD NETWORK -->
+
+            <path
+              class="gis-road"
+              d="M0 105 C220 115 430 90 900 120"
+            />
+
+            <path
+              class="gis-road-line"
+              d="M0 105 C220 115 430 90 900 120"
+            />
+
+
+            <path
+              class="gis-road"
+              d="M690 0 C675 140 700 300 650 500"
+            />
+
+            <path
+              class="gis-road-line"
+              d="M690 0 C675 140 700 300 650 500"
+            />
+
+
+            <!-- WATER BODY -->
+
+            <path
+              class="gis-water"
+              d="M0 375
+                 C90 340 145 355 205 390
+                 C250 418 285 425 335 410
+                 L350 500
+                 L0 500 Z"
+            />
+
+
+            <!-- GREEN AREA -->
+
+            <path
+              class="gis-green"
+              d="M735 350
+                 C785 320 845 330 900 345
+                 L900 500
+                 L720 500
+                 C735 450 750 410 735 350 Z"
+            />
+
+
+            <!-- PARCELS -->
+
+            <g id="gisParcels">
+
+              <polygon
+                class="gis-parcel"
+                data-gis-id="P-101"
+                points="80,145 220,130 270,205 230,285 105,270 55,210"
+              />
+
+              <text
+                class="gis-parcel-label"
+                x="165"
+                y="210"
+              >
+                P-101
+              </text>
+
+
+              <polygon
+                class="gis-parcel"
+                data-gis-id="P-102"
+                points="275,140 405,125 470,185 435,270 305,255 250,205"
+              />
+
+              <text
+                class="gis-parcel-label"
+                x="360"
+                y="205"
+              >
+                P-102
+              </text>
+
+
+              <polygon
+                class="gis-parcel"
+                data-gis-id="P-103"
+                points="475,145 590,130 650,190 615,285 490,270 445,210"
+              />
+
+              <text
+                class="gis-parcel-label"
+                x="545"
+                y="210"
+              >
+                P-103
+              </text>
+
+
+              <polygon
+                class="gis-parcel"
+                data-gis-id="P-104"
+                points="90,285 230,300 285,350 245,410 110,405 65,350"
+              />
+
+              <text
+                class="gis-parcel-label"
+                x="170"
+                y="350"
+              >
+                P-104
+              </text>
+
+
+              <polygon
+                class="gis-parcel"
+                data-gis-id="P-105"
+                points="300,285 430,285 485,345 450,415 315,405 270,345"
+              />
+
+              <text
+                class="gis-parcel-label"
+                x="375"
+                y="350"
+              >
+                P-105
+              </text>
+
+
+              <polygon
+                class="gis-parcel"
+                data-gis-id="P-106"
+                points="500,295 615,300 680,355 640,430 515,415 465,350"
+              />
+
+              <text
+                class="gis-parcel-label"
+                x="575"
+                y="360"
+              >
+                P-106
+              </text>
+
+            </g>
+
+
+            <!-- SELECTED PARCEL LABEL -->
+
+            <text
+              id="gisSelectedLabel"
+              class="gis-selected-label"
+              x="545"
+              y="185"
+              visibility="hidden"
+            >
+              SELECTED
+            </text>
+
+
+            <!-- LOCATION LABELS -->
+
+            <text
+              class="gis-location"
+              x="25"
+              y="70"
+            >
+              NORTH ACCESS ROAD
+            </text>
+
+            <text
+              class="gis-location"
+              x="720"
+              y="80"
+            >
+              SECTOR ROAD
+            </text>
+
+            <text
+              class="gis-location"
+              x="45"
+              y="455"
+            >
+              WATER BODY
+            </text>
+
+            <text
+              class="gis-location"
+              x="770"
+              y="455"
+            >
+              GREEN / OPEN AREA
+            </text>
+
+          </svg>
+
+
+          <div class="gis-legend">
+
+            <div class="gis-legend-row">
+              <span class="legend-box legend-selected"></span>
+              Selected parcel
+            </div>
+
+            <div class="gis-legend-row">
+              <span class="legend-box"></span>
+              Parcel boundary
+            </div>
+
+            <div class="gis-legend-row">
+              <span class="legend-road"></span>
+              Road
+            </div>
+
+            <div class="gis-legend-row">
+              <span class="legend-box legend-water"></span>
+              Water
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="gis-coordinates"
+          id="gisCoordinates"
+        >
+          Spatial coordinates loading...
         </div>
 
       </div>
@@ -507,168 +905,451 @@
 
 <script>
 
-const PARCELS = {
+const API_BASE =
+  "http://127.0.0.1:8000/api";
 
-  "P-101": {
-    area: "1,140 m²",
-    owner: "Ramesh Kumar",
-    landUse: "Residential",
-    registration: "Verified",
-    mutation: "Completed",
-    tax: "Paid",
-    zoning: "Residential",
-    building: "Approved",
-    dispute: "None",
-    status: "Registered"
-  },
 
-  "P-102": {
-    area: "980 m²",
-    owner: "Sunita Devi",
-    landUse: "Agricultural",
-    registration: "Verified",
-    mutation: "Completed",
-    tax: "Paid",
-    zoning: "Agricultural",
-    building: "Not Applicable",
-    dispute: "None",
-    status: "Registered"
-  },
-
-  "P-103": {
-    area: "1,250 m²",
-    owner: "Raj Kumar",
-    landUse: "Residential",
-    registration: "Verified",
-    mutation: "Completed",
-    tax: "Paid",
-    zoning: "Residential",
-    building: "Approved",
-    dispute: "None",
-    status: "Registered"
-  },
-
-  "P-104": {
-    area: "1,080 m²",
-    owner: "Hari Prasad",
-    landUse: "Commercial",
-    registration: "Under Review",
-    mutation: "Pending",
-    tax: "Paid",
-    zoning: "Commercial",
-    building: "Under Review",
-    dispute: "None",
-    status: "Under Review"
-  },
-
-  "P-105": {
-    area: "1,320 m²",
-    owner: "Meena Sharma",
-    landUse: "Residential",
-    registration: "Verified",
-    mutation: "Completed",
-    tax: "Paid",
-    zoning: "Residential",
-    building: "Approved",
-    dispute: "None",
-    status: "Registered"
-  },
-
-  "P-106": {
-    area: "1,750 m²",
-    owner: "District Board",
-    landUse: "Government",
-    registration: "Verified",
-    mutation: "Completed",
-    tax: "Paid",
-    zoning: "Public / Institutional",
-    building: "Not Applicable",
-    dispute: "None",
-    status: "Govt. Land"
-  }
-
-};
-
+/* =====================================================
+   GET PARCEL ID FROM URL
+   ===================================================== */
 
 const params =
   new URLSearchParams(
     window.location.search
   );
 
-
-const id =
+const requestedId =
   params.get("id") || "P-103";
 
 
-const data =
-  PARCELS[id] || PARCELS["P-103"];
+/* =====================================================
+   DOM
+   ===================================================== */
+
+const detailsParcelId =
+  document.getElementById(
+    "detailsParcelId"
+  );
+
+const detailParcelId =
+  document.getElementById(
+    "detailParcelId"
+  );
+
+const detailOwner =
+  document.getElementById(
+    "detailOwner"
+  );
+
+const detailArea =
+  document.getElementById(
+    "detailArea"
+  );
+
+const detailLandUse =
+  document.getElementById(
+    "detailLandUse"
+  );
+
+const detailRegistration =
+  document.getElementById(
+    "detailRegistration"
+  );
+
+const detailMutation =
+  document.getElementById(
+    "detailMutation"
+  );
+
+const detailTax =
+  document.getElementById(
+    "detailTax"
+  );
+
+const detailZoning =
+  document.getElementById(
+    "detailZoning"
+  );
+
+const detailBuilding =
+  document.getElementById(
+    "detailBuilding"
+  );
+
+const detailDispute =
+  document.getElementById(
+    "detailDispute"
+  );
+
+const detailsStatus =
+  document.getElementById(
+    "detailsStatus"
+  );
+
+const gisCoordinates =
+  document.getElementById(
+    "gisCoordinates"
+  );
 
 
-document.getElementById(
-  "detailsParcelId"
-).textContent = id;
+/* =====================================================
+   LOAD SELECTED PARCEL FROM BACKEND
+   ===================================================== */
+
+async function loadParcel() {
+
+  try {
+
+    const response =
+      await fetch(
+        `${API_BASE}/parcels/${encodeURIComponent(requestedId)}`
+      );
 
 
-document.getElementById(
-  "detailParcelId"
-).textContent = id;
+    if (!response.ok) {
+
+      throw new Error(
+        "Parcel not found"
+      );
+
+    }
 
 
-document.getElementById(
-  "detailOwner"
-).textContent = data.owner;
+    const data =
+      await response.json();
 
 
-document.getElementById(
-  "detailArea"
-).textContent = data.area;
+    /*
+     * Update page
+     */
+
+    detailsParcelId.textContent =
+      data.parcel_id;
+
+    detailParcelId.textContent =
+      data.parcel_id;
+
+    detailOwner.textContent =
+      data.owner_name;
+
+    detailArea.textContent =
+      `${Number(data.area).toLocaleString()} m²`;
+
+    detailLandUse.textContent =
+      data.land_use;
+
+    detailRegistration.textContent =
+      data.registration_status;
+
+    detailMutation.textContent =
+      data.mutation_status;
+
+    detailTax.textContent =
+      data.tax_status;
+
+    detailZoning.textContent =
+      data.zoning;
+
+    detailBuilding.textContent =
+      data.building_permission;
+
+    detailDispute.textContent =
+      data.dispute_status;
+
+    detailsStatus.textContent =
+      data.registration_status;
 
 
-document.getElementById(
-  "detailLandUse"
-).textContent = data.landUse;
+    /*
+     * Coordinates
+     */
+
+    gisCoordinates.innerHTML = `
+      <strong>Spatial Reference:</strong>
+      Latitude ${Number(data.latitude).toFixed(6)}
+      &nbsp; | &nbsp;
+      Longitude ${Number(data.longitude).toFixed(6)}
+      &nbsp; | &nbsp;
+      Parcel: ${data.parcel_id}
+    `;
 
 
-document.getElementById(
-  "detailRegistration"
-).textContent =
-  data.registration;
+    /*
+     * Highlight parcel
+     */
+
+    highlightGISParcel(
+      data.parcel_id
+    );
 
 
-document.getElementById(
-  "detailMutation"
-).textContent =
-  data.mutation;
+  } catch (error) {
+
+    console.error(
+      "GIS parcel loading error:",
+      error
+    );
 
 
-document.getElementById(
-  "detailTax"
-).textContent =
-  data.tax;
+    detailsParcelId.textContent =
+      requestedId;
+
+    detailsStatus.textContent =
+      "Unable to load";
 
 
-document.getElementById(
-  "detailZoning"
-).textContent =
-  data.zoning;
+    gisCoordinates.textContent =
+      "Backend connection failed. Please start FastAPI server.";
+
+  }
+
+}
 
 
-document.getElementById(
-  "detailBuilding"
-).textContent =
-  data.building;
+/* =====================================================
+   HIGHLIGHT GIS PARCEL
+   ===================================================== */
+
+function highlightGISParcel(id) {
+
+  const parcels =
+    document.querySelectorAll(
+      ".gis-parcel"
+    );
 
 
-document.getElementById(
-  "detailDispute"
-).textContent =
-  data.dispute;
+  parcels.forEach(parcel => {
+
+    parcel.classList.remove(
+      "selected"
+    );
+
+  });
 
 
-document.getElementById(
-  "detailsStatus"
-).textContent =
-  data.status;
+  /*
+   * For our visible demo map,
+   * parcel IDs P-101 to P-106
+   * have dedicated polygons.
+   */
+
+  const selected =
+    document.querySelector(
+      `.gis-parcel[data-gis-id="${id}"]`
+    );
+
+
+  if (selected) {
+
+    selected.classList.add(
+      "selected"
+    );
+
+
+    /*
+     * Bring selected parcel to front
+     */
+
+    selected.parentNode.appendChild(
+      selected
+    );
+
+
+    /*
+     * Update selected label
+     */
+
+    const label =
+      document.getElementById(
+        "gisSelectedLabel"
+      );
+
+
+    if (label) {
+
+      const box =
+        selected.getBBox();
+
+
+      label.setAttribute(
+        "x",
+        box.x + box.width / 2
+      );
+
+      label.setAttribute(
+        "y",
+        box.y + 22
+      );
+
+      label.setAttribute(
+        "visibility",
+        "visible"
+      );
+
+      label.textContent =
+        `${id} • SELECTED`;
+
+    }
+
+  } else {
+
+    /*
+     * If backend has P-107 ... P-200,
+     * we still show the GIS map,
+     * but the demo visible map does not
+     * have a dedicated polygon for it yet.
+     */
+
+    const label =
+      document.getElementById(
+        "gisSelectedLabel"
+      );
+
+
+    if (label) {
+
+      label.setAttribute(
+        "visibility",
+        "hidden"
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   CLICK GIS PARCEL
+   ===================================================== */
+
+document
+  .querySelectorAll(".gis-parcel")
+  .forEach(parcel => {
+
+    parcel.addEventListener(
+      "click",
+      () => {
+
+        const id =
+          parcel.dataset.gisId;
+
+
+        /*
+         * Change URL without reload
+         */
+
+        window.history.replaceState(
+          {},
+          "",
+          `parcel-details.html?id=${encodeURIComponent(id)}`
+        );
+
+
+        /*
+         * Reload actual backend data
+         */
+
+        loadSpecificParcel(id);
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   LOAD CLICKED GIS PARCEL
+   ===================================================== */
+
+async function loadSpecificParcel(id) {
+
+  try {
+
+    const response =
+      await fetch(
+        `${API_BASE}/parcels/${encodeURIComponent(id)}`
+      );
+
+
+    if (!response.ok) {
+      throw new Error(
+        "Parcel not found"
+      );
+    }
+
+
+    const data =
+      await response.json();
+
+
+    detailsParcelId.textContent =
+      data.parcel_id;
+
+    detailParcelId.textContent =
+      data.parcel_id;
+
+    detailOwner.textContent =
+      data.owner_name;
+
+    detailArea.textContent =
+      `${Number(data.area).toLocaleString()} m²`;
+
+    detailLandUse.textContent =
+      data.land_use;
+
+    detailRegistration.textContent =
+      data.registration_status;
+
+    detailMutation.textContent =
+      data.mutation_status;
+
+    detailTax.textContent =
+      data.tax_status;
+
+    detailZoning.textContent =
+      data.zoning;
+
+    detailBuilding.textContent =
+      data.building_permission;
+
+    detailDispute.textContent =
+      data.dispute_status;
+
+    detailsStatus.textContent =
+      data.registration_status;
+
+
+    gisCoordinates.innerHTML = `
+      <strong>Spatial Reference:</strong>
+      Latitude ${Number(data.latitude).toFixed(6)}
+      &nbsp; | &nbsp;
+      Longitude ${Number(data.longitude).toFixed(6)}
+      &nbsp; | &nbsp;
+      Parcel: ${data.parcel_id}
+    `;
+
+
+    highlightGISParcel(
+      data.parcel_id
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+loadParcel();
 
 </script>
 
@@ -676,3 +1357,4 @@ document.getElementById(
 </body>
 
 </html>
+
