@@ -2,7 +2,7 @@
    LANDGOV GIS — DYNAMIC 200 PARCEL GIS
    ========================================================= */
 
-const API_BASE = "http://127.0.0.1:8000/api";
+const API_BASE = "https://gis-bhunexus-backend.onrender.com/api";
 
 let PARCELS = {};
 let ALL_IDS = [];
@@ -631,8 +631,8 @@ async function loadParcels() {
 
         alert(
             "Parcel data load nahi hua.\n\n" +
-            "FastAPI server check karo:\n" +
-            "http://127.0.0.1:8000/api/parcels/"
+            "FastAPI server check karo:\n\n" +
+            "https://gis-bhunexus-backend.onrender.com/api/parcels/"
         );
     }
 }
