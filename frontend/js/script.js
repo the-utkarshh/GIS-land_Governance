@@ -1,5 +1,5 @@
 /* =========================================================
-   LANDGOV GIS — DYNAMIC 200 PARCEL GIS
+   BhuNexus GIS — DYNAMIC 200 PARCEL GIS
    ========================================================= */
 
 const API_BASE = "https://gis-bhunexus-backend.onrender.com/api";
