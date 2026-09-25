@@ -16,12 +16,30 @@ DATA_FILE = os.path.join(
 
 
 def load_parcels():
-    with open(DATA_FILE, "r", encoding="utf-8") as file:
-        return json.load(file)
+    if not os.path.exists(DATA_FILE):
+        raise HTTPException(
+            status_code=500,
+            detail="Parcel database file not found."
+        )
+
+    try:
+        with open(
+            DATA_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+            return json.load(file)
+
+    except json.JSONDecodeError:
+        raise HTTPException(
+            status_code=500,
+            detail="Parcel database contains invalid JSON."
+        )
 
 
 @router.get("/")
 def get_parcels():
+
     parcels = load_parcels()
 
     return {
@@ -30,21 +48,30 @@ def get_parcels():
     }
 
 
-# SEARCH — this must come before /{parcel_id}
 @router.get("/search")
-def search_parcels(q: str = Query(..., min_length=1)):
+def search_parcels(
+    q: str = Query(..., min_length=1)
+):
+
     parcels = load_parcels()
 
-    query = q.lower()
+    query = q.strip().lower()
 
     results = []
 
     for parcel in parcels:
-        if (
-            query in parcel["parcel_id"].lower()
-            or query in parcel["survey_number"].lower()
-            or query in parcel["khasra_number"].lower()
-            or query in parcel["owner_name"].lower()
+
+        searchable_values = [
+            parcel.get("parcel_id", ""),
+            parcel.get("survey_number", ""),
+            parcel.get("khasra_number", ""),
+            parcel.get("owner_name", ""),
+            parcel.get("owner_id", "")
+        ]
+
+        if any(
+            query in str(value).lower()
+            for value in searchable_values
         ):
             results.append(parcel)
 
@@ -56,10 +83,19 @@ def search_parcels(q: str = Query(..., min_length=1)):
 
 @router.get("/{parcel_id}")
 def get_parcel(parcel_id: str):
+
     parcels = load_parcels()
 
+    parcel_id = parcel_id.strip().lower()
+
     for parcel in parcels:
-        if parcel["parcel_id"].lower() == parcel_id.lower():
+
+        if (
+            str(
+                parcel.get("parcel_id", "")
+            ).lower()
+            == parcel_id
+        ):
             return parcel
 
     raise HTTPException(

@@ -1,0 +1,1530 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>BhuNexus — Officer Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+<link rel="stylesheet" href="css/style.css" />
+
+</head><body class="officer-dashboard-page"><!-- =====================================================
+     TOP NAVBAR
+     ===================================================== -->
+
+<header class="officer-navbar">
+
+    <a href="index.html" class="officer-brand">
+
+        <div class="officer-brand-icon">
+            B
+        </div>
+
+        <div>
+            <div class="officer-brand-name">
+                BhuNexus
+            </div>
+
+            <div class="officer-brand-subtitle">
+                Digital Land Governance
+            </div>
+        </div>
+
+    </a>
+
+
+    <div class="officer-user-area">
+
+        <div class="officer-user-info">
+
+            <strong>
+                Land Officer
+            </strong>
+
+            <span>
+                Administration Portal
+            </span>
+
+        </div>
+
+
+        <div class="officer-avatar">
+            O
+        </div>
+
+
+        <button class="officer-logout" id="officerLogoutBtn" type="button">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN LAYOUT
+     ===================================================== -->
+
+<main class="officer-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+         ================================================= -->
+
+    <aside class="officer-sidebar">
+
+        <div class="officer-sidebar-label">
+            OFFICER PORTAL
+        </div>
+
+
+        <button class="officer-nav-item active" type="button" id="officerDashboardBtn">
+            <span>⌂</span>
+            Dashboard
+        </button>
+
+
+        <button class="officer-nav-item" id="officerMapBtn" type="button">
+            <span>◉</span>
+            GIS Parcel Map
+        </button>
+
+
+        <button class="officer-nav-item" id="officerSearchBtn" type="button">
+            <span>⌕</span>
+            Parcel Search
+        </button>
+
+
+        <button class="officer-nav-item" id="officerVerificationBtn" type="button">
+            <span>✓</span>
+            Verification
+        </button>
+
+
+        <button class="officer-nav-item" id="officerRecordsBtn" type="button">
+            <span>▤</span>
+            Land Records
+        </button>
+
+
+        <button class="officer-nav-item" id="officerFlaggedBtn" type="button">
+            <span>⚑</span>
+            Flagged Parcels
+        </button>
+
+
+        <button class="officer-nav-item" id="officerReportsBtn" type="button">
+            <span>▥</span>
+            Reports & Analytics
+        </button>
+
+
+        <div class="officer-sidebar-bottom">
+
+            <button class="officer-nav-item" id="officerHelpBtn" type="button">
+                <span>?</span>
+                Help & Support
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         CONTENT
+         ================================================= -->
+
+    <section class="officer-content">
+
+
+        <!-- HEADER -->
+
+        <div class="officer-page-header">
+
+            <div>
+
+                <span class="officer-kicker">
+                    ADMINISTRATION PORTAL
+                </span>
+
+                <h1>
+                    Officer Dashboard
+                </h1>
+
+                <p>
+                    Monitor land parcels, verify records and manage
+                    GIS-based land governance information.
+                </p>
+
+            </div>
+
+
+            <div class="officer-date-card">
+
+                <span>
+                    SYSTEM STATUS
+                </span>
+
+                <strong id="systemStatus">
+                    ● Connecting...
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STAT CARDS
+             ================================================= -->
+
+        <div class="officer-stats">
+
+
+            <div class="officer-stat-card">
+
+                <div class="officer-stat-icon">
+                    ◉
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Parcels
+                    </span>
+
+                    <strong id="totalParcels">
+                        —
+                    </strong>
+
+                    <small>
+                        GIS database
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="officer-stat-card">
+
+                <div class="officer-stat-icon verified-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Verified
+                    </span>
+
+                    <strong id="verifiedParcels">
+                        —
+                    </strong>
+
+                    <small id="verifiedPercentage">
+                        Loading...
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="officer-stat-card">
+
+                <div class="officer-stat-icon pending-icon">
+                    ◷
+                </div>
+
+                <div>
+
+                    <span>
+                        Pending Verification
+                    </span>
+
+                    <strong id="pendingParcels">
+                        —
+                    </strong>
+
+                    <small>
+                        Requires review
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="officer-stat-card">
+
+                <div class="officer-stat-icon flagged-icon">
+                    !
+                </div>
+
+                <div>
+
+                    <span>
+                        Flagged Parcels
+                    </span>
+
+                    <strong id="flaggedParcels">
+                        —
+                    </strong>
+
+                    <small>
+                        Requires attention
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEARCH + QUICK ACTIONS
+             ================================================= -->
+
+        <div class="officer-main-grid">
+
+
+            <!-- PARCEL SEARCH -->
+
+            <div class="officer-panel officer-search-panel" id="parcelSearchSection">
+
+                <div class="officer-panel-heading">
+
+                    <div>
+
+                        <span class="officer-panel-kicker">
+                            GIS DATABASE
+                        </span>
+
+                        <h2>
+                            Search Parcel
+                        </h2>
+
+                    </div>
+
+                    <span class="officer-panel-icon">
+                        ⌕
+                    </span>
+
+                </div>
+
+
+                <p class="officer-panel-description">
+                    Locate a parcel using its Parcel ID,
+                    Khasra or Survey Number.
+                </p>
+
+
+                <div class="officer-search-box">
+
+                    <input type="text"
+                        id="officerParcelSearch"
+                        placeholder="e.g. P-124 or 124"
+                        autocomplete="off" />
+
+                    <button id="officerParcelSearchBtn" type="button">
+                        Search
+                    </button>
+
+                </div>
+
+
+                <div class="officer-search-result" id="officerSearchResult"></div>
+
+
+            </div>
+
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="officer-panel">
+
+                <div class="officer-panel-heading">
+
+                    <div>
+
+                        <span class="officer-panel-kicker">
+                            QUICK ACCESS
+                        </span>
+
+                        <h2>
+                            Officer Actions
+                        </h2>
+
+                    </div>
+
+                    <span class="officer-panel-icon">
+                        ⚡
+                    </span>
+
+                </div>
+
+
+                <div class="officer-actions">
+
+
+                    <button class="officer-action" id="openOfficerMap" type="button">
+
+                        <span>
+                            🗺️
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Open GIS Map
+                            </strong>
+
+                            <small>
+                                Explore all parcels
+                            </small>
+
+                        </div>
+
+                        <b>
+                            →
+                        </b>
+
+                    </button>
+
+
+
+                    <button class="officer-action" id="openVerification" type="button">
+
+                        <span>
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Verify Records
+                            </strong>
+
+                            <small>
+                                Review pending cases
+                            </small>
+
+                        </div>
+
+                        <b>
+                            →
+                        </b>
+
+                    </button>
+
+
+
+                    <button class="officer-action" id="openReports" type="button">
+
+                        <span>
+                            ▥
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Generate Report
+                            </strong>
+
+                            <small>
+                                Land data reports
+                            </small>
+
+                        </div>
+
+                        <b>
+                            →
+                        </b>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RECENT VERIFICATION CASES
+             ================================================= -->
+
+        <div class="officer-section">
+
+            <div class="officer-section-heading">
+
+                <div>
+
+                    <span class="officer-panel-kicker">
+                        RECORD MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Recent Verification Cases
+                    </h2>
+
+                </div>
+
+
+                <button class="officer-view-all" id="viewAllVerification" type="button">
+                    View All →
+                </button>
+
+            </div>
+
+
+
+            <div class="officer-table-wrapper">
+
+                <table class="officer-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Parcel
+                            </th>
+
+                            <th>
+                                Location
+                            </th>
+
+                            <th>
+                                Land Use
+                            </th>
+
+                            <th>
+                                Submitted
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="verificationTableBody">
+
+                        <tr>
+                            <td colspan="6" style="text-align:center;">
+                                Loading verification records...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LAND USE OVERVIEW
+             ================================================= -->
+
+        <div class="officer-section">
+
+            <div class="officer-section-heading">
+
+                <div>
+
+                    <span class="officer-panel-kicker">
+                        GIS INSIGHTS
+                    </span>
+
+                    <h2>
+                        Land Use Overview
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="land-use-grid" id="landUseGrid">
+
+                <div class="land-use-card">
+
+                    <div class="land-use-top">
+
+                        <span>
+                            Loading...
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="land-use-bar">
+                        <span style="width:0%"></span>
+                    </div>
+
+                    <small>
+                        Fetching GIS data
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     OFFICER DASHBOARD JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+const API_BASE =
+"https://gis-bhunexus-backend.onrender.com/api";
+
+/* =====================================================
+GLOBAL PARCEL DATA
+===================================================== */
+
+let allParcels = [];
+
+/* =====================================================
+PAGE NAVIGATION
+===================================================== */
+
+function goTo(page) {
+window.location.href = page;
+}
+
+/* =====================================================
+GIS MAP
+===================================================== */
+
+document
+.getElementById("officerMapBtn")
+.addEventListener("click", function () {
+goTo("index.html");
+});
+
+document
+.getElementById("openOfficerMap")
+.addEventListener("click", function () {
+goTo("index.html");
+});
+
+/* =====================================================
+PARCEL SEARCH SECTION
+===================================================== */
+
+document
+.getElementById("officerSearchBtn")
+.addEventListener("click", function () {
+
+    const input =
+        document.getElementById("officerParcelSearch");
+
+    input.focus();
+
+    input.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+});
+
+/* =====================================================
+OFFICER SIDEBAR
+===================================================== */
+
+document
+.getElementById("officerDashboardBtn")
+.addEventListener("click", function () {
+goTo("officer-dashboard.html");
+});
+
+document
+.getElementById("officerVerificationBtn")
+.addEventListener("click", function () {
+goTo("officer-verification.html");
+});
+
+document
+.getElementById("officerRecordsBtn")
+.addEventListener("click", function () {
+goTo("officer-records.html");
+});
+
+document
+.getElementById("officerFlaggedBtn")
+.addEventListener("click", function () {
+goTo("officer-flagged.html");
+});
+
+document
+.getElementById("officerReportsBtn")
+.addEventListener("click", function () {
+goTo("officer-reports.html");
+});
+
+document
+.getElementById("officerHelpBtn")
+.addEventListener("click", function () {
+
+    alert(
+        "BhuNexus Help & Support\n\n" +
+        "For parcel search, verification and land record assistance, " +
+        "contact the system administrator."
+    );
+
+});
+
+/* =====================================================
+SAFE VALUE HELPER
+===================================================== */
+
+function getValue(parcel, keys, fallback = "—") {
+
+for (const key of keys) {
+
+    if (
+        parcel &&
+        parcel[key] !== undefined &&
+        parcel[key] !== null &&
+        String(parcel[key]).trim() !== ""
+    ) {
+
+        return parcel[key];
+
+    }
+
+}
+
+return fallback;
+
+}
+
+/* =====================================================
+NORMALIZE STATUS
+===================================================== */
+
+function normalizeStatus(parcel) {
+
+const rawStatus =
+    String(
+        getValue(
+            parcel,
+            [
+                "status",
+                "verification_status",
+                "verificationStatus",
+                "record_status"
+            ],
+            ""
+        )
+    )
+    .trim()
+    .toLowerCase();
+
+
+if (
+    rawStatus.includes("flag")
+) {
+    return "flagged";
+}
+
+
+if (
+    rawStatus.includes("pending") ||
+    rawStatus.includes("review")
+) {
+    return "pending";
+}
+
+
+if (
+    rawStatus.includes("verif") ||
+    rawStatus.includes("register") ||
+    rawStatus.includes("approved")
+) {
+    return "verified";
+}
+
+
+return "pending";
+
+}
+
+/* =====================================================
+LOAD GIS DATABASE
+===================================================== */
+
+async function loadOfficerDashboard() {
+
+const systemStatus =
+    document.getElementById("systemStatus");
+
+
+try {
+
+    systemStatus.textContent =
+        "● Connecting...";
+
+
+    const response =
+        await fetch(
+            `${API_BASE}/parcels`
+        );
+
+
+    if (!response.ok) {
+        throw new Error("Unable to load parcels");
+    }
+
+
+    const data =
+        await response.json();
+
+
+    allParcels =
+        Array.isArray(data)
+            ? data
+            : (
+                data.parcels ||
+                data.data ||
+                []
+            );
+
+
+    if (!Array.isArray(allParcels)) {
+        allParcels = [];
+    }
+
+
+    systemStatus.textContent =
+        "● Operational";
+
+
+    updateStatistics();
+
+    updateVerificationTable();
+
+    updateLandUseOverview();
+
+
+}
+
+catch (error) {
+
+    console.error(
+        "Dashboard API error:",
+        error
+    );
+
+
+    systemStatus.textContent =
+        "● Database unavailable";
+
+
+    document.getElementById("totalParcels").textContent =
+        "—";
+
+
+    document.getElementById("verifiedParcels").textContent =
+        "—";
+
+
+    document.getElementById("pendingParcels").textContent =
+        "—";
+
+
+    document.getElementById("flaggedParcels").textContent =
+        "—";
+
+
+    document.getElementById("verifiedPercentage").textContent =
+        "Unable to load";
+
+
+    document.getElementById("verificationTableBody").innerHTML = `
+        <tr>
+            <td colspan="6" style="text-align:center;">
+                Unable to load GIS verification records.
+            </td>
+        </tr>
+    `;
+
+}
+
+}
+
+/* =====================================================
+UPDATE STATISTICS
+===================================================== */
+
+function updateStatistics() {
+
+const total =
+    allParcels.length;
+
+
+let verified = 0;
+let pending = 0;
+let flagged = 0;
+
+
+allParcels.forEach(function(parcel) {
+
+    const status =
+        normalizeStatus(parcel);
+
+
+    if (status === "verified") {
+        verified++;
+    }
+
+    else if (status === "flagged") {
+        flagged++;
+    }
+
+    else {
+        pending++;
+    }
+
+});
+
+
+document.getElementById("totalParcels").textContent =
+    total;
+
+
+document.getElementById("verifiedParcels").textContent =
+    verified;
+
+
+document.getElementById("pendingParcels").textContent =
+    pending;
+
+
+document.getElementById("flaggedParcels").textContent =
+    flagged;
+
+
+const percentage =
+    total > 0
+        ? Math.round((verified / total) * 100)
+        : 0;
+
+
+document.getElementById("verifiedPercentage").textContent =
+    `${percentage}% of parcels`;
+
+}
+
+/* =====================================================
+UPDATE VERIFICATION TABLE
+===================================================== */
+
+function updateVerificationTable() {
+
+const tableBody =
+    document.getElementById(
+        "verificationTableBody"
+    );
+
+
+if (!allParcels.length) {
+
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="6" style="text-align:center;">
+                No parcel records available.
+            </td>
+        </tr>
+    `;
+
+    return;
+}
+
+
+const recentParcels =
+    allParcels.slice(0, 4);
+
+
+tableBody.innerHTML =
+    recentParcels
+        .map(function(parcel) {
+
+            const parcelId =
+                getValue(
+                    parcel,
+                    [
+                        "parcel_id",
+                        "id",
+                        "parcelId"
+                    ],
+                    "Unknown"
+                );
+
+
+            const location =
+                getValue(
+                    parcel,
+                    [
+                        "location",
+                        "village",
+                        "village_name",
+                        "area",
+                        "district"
+                    ],
+                    "GIS Region"
+                );
+
+
+            const landUse =
+                getValue(
+                    parcel,
+                    [
+                        "land_use",
+                        "landUse",
+                        "land_type",
+                        "type"
+                    ],
+                    "—"
+                );
+
+
+            const submitted =
+                getValue(
+                    parcel,
+                    [
+                        "submitted",
+                        "submitted_date",
+                        "submission_date",
+                        "created_at",
+                        "date"
+                    ],
+                    "—"
+                );
+
+
+            const status =
+                normalizeStatus(parcel);
+
+
+            const statusText =
+                status.charAt(0).toUpperCase() +
+                status.slice(1);
+
+
+            const statusClass =
+                status === "verified"
+                    ? "verified"
+                    : status === "flagged"
+                        ? "flagged"
+                        : "pending";
+
+
+            return `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHTML(parcelId)}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(location)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(landUse)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(submitted)}
+                    </td>
+
+                    <td>
+                        <span class="officer-status ${statusClass}">
+                            ${statusText}
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="table-action"
+                            type="button"
+                            onclick="openParcel('${escapeAttribute(parcelId)}')"
+                        >
+                            View
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+/* =====================================================
+LAND USE OVERVIEW
+===================================================== */
+
+function updateLandUseOverview() {
+
+const grid =
+    document.getElementById(
+        "landUseGrid"
+    );
+
+
+if (!allParcels.length) {
+
+    grid.innerHTML = `
+        <div class="land-use-card">
+            <div class="land-use-top">
+                <span>No data</span>
+                <strong>0%</strong>
+            </div>
+            <div class="land-use-bar">
+                <span style="width:0%"></span>
+            </div>
+            <small>No parcels available</small>
+        </div>
+    `;
+
+    return;
+}
+
+
+const counts = {};
+
+
+allParcels.forEach(function(parcel) {
+
+    const landUse =
+        String(
+            getValue(
+                parcel,
+                [
+                    "land_use",
+                    "landUse",
+                    "land_type",
+                    "type"
+                ],
+                "Other"
+            )
+        )
+        .trim();
+
+
+    const normalized =
+        landUse || "Other";
+
+
+    counts[normalized] =
+        (counts[normalized] || 0) + 1;
+
+});
+
+
+const sorted =
+    Object.entries(counts)
+        .sort(function(a, b) {
+            return b[1] - a[1];
+        })
+        .slice(0, 4);
+
+
+grid.innerHTML =
+    sorted
+        .map(function(entry) {
+
+            const name =
+                entry[0];
+
+            const count =
+                entry[1];
+
+
+            const percentage =
+                Math.round(
+                    (count / allParcels.length) * 100
+                );
+
+
+            return `
+
+                <div class="land-use-card">
+
+                    <div class="land-use-top">
+
+                        <span>
+                            ${escapeHTML(name)}
+                        </span>
+
+                        <strong>
+                            ${percentage}%
+                        </strong>
+
+                    </div>
+
+                    <div class="land-use-bar">
+
+                        <span
+                            style="width:${percentage}%"
+                        ></span>
+
+                    </div>
+
+                    <small>
+                        ${count} parcels
+                    </small>
+
+                </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+/* =====================================================
+HTML SAFETY
+===================================================== */
+
+function escapeHTML(value) {
+
+return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+function escapeAttribute(value) {
+
+return String(value)
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'");
+
+}
+
+/* =====================================================
+PARCEL SEARCH
+===================================================== */
+
+async function searchOfficerParcel() {
+
+const input =
+    document.getElementById(
+        "officerParcelSearch"
+    );
+
+
+const resultBox =
+    document.getElementById(
+        "officerSearchResult"
+    );
+
+
+const value =
+    input.value.trim();
+
+
+if (!value) {
+
+    resultBox.innerHTML =
+        "Please enter a Parcel ID, Khasra or Survey Number.";
+
+    resultBox.className =
+        "officer-search-result error";
+
+    input.focus();
+
+    return;
+
+}
+
+
+resultBox.innerHTML =
+    "Searching parcel...";
+
+
+resultBox.className =
+    "officer-search-result loading";
+
+
+try {
+
+    const response =
+        await fetch(
+            `${API_BASE}/parcels/search?q=${encodeURIComponent(value)}`
+        );
+
+
+    if (!response.ok) {
+        throw new Error(
+            "Search request failed"
+        );
+    }
+
+
+    const data =
+        await response.json();
+
+
+    const parcels =
+        Array.isArray(data)
+            ? data
+            : (
+                data.parcels ||
+                data.data ||
+                []
+            );
+
+
+    if (!parcels.length) {
+
+        resultBox.innerHTML =
+            `No parcel found for "${escapeHTML(value)}".`;
+
+        resultBox.className =
+            "officer-search-result error";
+
+        return;
+
+    }
+
+
+    const parcel =
+        parcels[0];
+
+
+    const parcelId =
+        parcel.parcel_id ||
+        parcel.id ||
+        parcel.parcelId;
+
+
+    resultBox.innerHTML = `
+
+        <div class="officer-result-success">
+
+            <div>
+
+                <strong>
+                    ${escapeHTML(parcelId)}
+                </strong>
+
+                <span>
+                    Parcel located successfully
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="openParcel('${escapeAttribute(parcelId)}')"
+            >
+                View on Map →
+            </button>
+
+        </div>
+
+    `;
+
+
+    resultBox.className =
+        "officer-search-result success";
+
+}
+
+catch (error) {
+
+    console.error(error);
+
+
+    resultBox.innerHTML =
+        "Unable to connect to the GIS database.";
+
+
+    resultBox.className =
+        "officer-search-result error";
+
+}
+
+}
+
+/* SEARCH BUTTON */
+
+document
+.getElementById(
+"officerParcelSearchBtn"
+)
+.addEventListener(
+"click",
+searchOfficerParcel
+);
+
+/* ENTER KEY */
+
+document
+.getElementById(
+"officerParcelSearch"
+)
+.addEventListener(
+"keydown",
+function(event) {
+
+        if (event.key === "Enter") {
+
+            searchOfficerParcel();
+
+        }
+
+    }
+);
+
+/* =====================================================
+OPEN PARCEL
+===================================================== */
+
+function openParcel(parcelId) {
+
+window.location.href =
+    `index.html?parcel=${encodeURIComponent(parcelId)}`;
+
+}
+
+/* =====================================================
+VIEW ALL VERIFICATION
+===================================================== */
+
+document
+.getElementById(
+"viewAllVerification"
+)
+.addEventListener(
+"click",
+function() {
+
+        goTo(
+            "officer-verification.html"
+        );
+
+    }
+);
+
+/* =====================================================
+QUICK ACTIONS
+===================================================== */
+
+document
+.getElementById(
+"openVerification"
+)
+.addEventListener(
+"click",
+function() {
+
+        goTo(
+            "officer-verification.html"
+        );
+
+    }
+);
+
+document
+.getElementById(
+"openReports"
+)
+.addEventListener(
+"click",
+function() {
+
+        goTo(
+            "officer-reports.html"
+        );
+
+    }
+);
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+document
+.getElementById(
+"officerLogoutBtn"
+)
+.addEventListener(
+"click",
+function() {
+
+        sessionStorage.removeItem(
+            "bhunexusMapSource"
+        );
+
+        window.location.href =
+            "index.html";
+
+    }
+);
+
+/* =====================================================
+START DASHBOARD
+===================================================== */
+
+loadOfficerDashboard();
+
+</script></body></html>

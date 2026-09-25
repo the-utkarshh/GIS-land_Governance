@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BhuNexus — Flagged Parcels</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="dashboard-page officer-page">
+
+  <header class="site-header dashboard-header">
+
+    <div class="nav-inner">
+
+      <a href="index.html" class="brand">
+
+        <div class="brand-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="8" fill="#1a6e8a"/>
+            <path
+              d="M8 26 L14 10 L21 18 L26 12 L28 26 Z"
+              fill="none"
+              stroke="#7dd3e8"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <circle cx="26" cy="12" r="2.5" fill="#f0c040"/>
+            <line
+              x1="8"
+              y1="26"
+              x2="28"
+              y2="26"
+              stroke="#7dd3e8"
+              stroke-width="1.2"
+            />
+          </svg>
+        </div>
+
+        <div class="brand-text">
+          <span class="brand-name">BhuNexus</span>
+          <span class="brand-tagline">Digital Land Governance</span>
+        </div>
+
+      </a>
+
+      <div class="dashboard-user">
+        <span>Land Officer</span>
+        <button onclick="logout()">Logout</button>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <div class="dashboard-layout">
+
+    <aside class="dashboard-sidebar officer-sidebar">
+
+      <div class="sidebar-profile">
+
+        <div class="profile-avatar">
+          LO
+        </div>
+
+        <div>
+          <strong>Land Officer</strong>
+          <small>Administration Portal</small>
+        </div>
+
+      </div>
+
+
+      <nav class="dashboard-nav">
+
+        <a href="officer-dashboard.html">
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a href="index.html">
+          <span>◈</span>
+          GIS Parcel Map
+        </a>
+
+        <a href="officer-dashboard.html#parcelSearchSection">
+          <span>⌕</span>
+          Parcel Search
+        </a>
+
+        <a href="officer-verification.html">
+          <span>✓</span>
+          Verification
+        </a>
+
+        <a href="officer-records.html">
+          <span>▤</span>
+          Land Records
+        </a>
+
+        <a href="officer-flagged.html" class="active">
+          <span>⚑</span>
+          Flagged Parcels
+        </a>
+
+        <a href="officer-reports.html">
+          <span>▥</span>
+          Reports & Analytics
+        </a>
+
+        <a href="officer-dashboard.html#help">
+          <span>?</span>
+          Help
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <main class="dashboard-main officer-main">
+
+      <div class="dashboard-page-heading">
+
+        <div>
+
+          <p class="dashboard-eyebrow">
+            EXCEPTION MANAGEMENT
+          </p>
+
+          <h1>
+            Flagged Parcels
+          </h1>
+
+          <p>
+            Review parcels that require attention or further verification.
+          </p>
+
+        </div>
+
+        <div class="verification-status">
+          <span class="status-dot"></span>
+          Monitoring Active
+        </div>
+
+      </div>
+
+
+      <section class="verification-stats">
+
+        <div class="verification-stat">
+
+          <span class="verification-stat-icon flagged">
+            ⚑
+          </span>
+
+          <div>
+            <strong>13</strong>
+            <span>Flagged Parcels</span>
+          </div>
+
+        </div>
+
+
+        <div class="verification-stat">
+
+          <span class="verification-stat-icon pending">
+            ◷
+          </span>
+
+          <div>
+            <strong>8</strong>
+            <span>Under Review</span>
+          </div>
+
+        </div>
+
+
+        <div class="verification-stat">
+
+          <span class="verification-stat-icon">
+            ✓
+          </span>
+
+          <div>
+            <strong>5</strong>
+            <span>Resolved</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="verification-panel">
+
+        <div class="verification-panel-header">
+
+          <div>
+            <h2>Parcels Requiring Attention</h2>
+            <p>Review flagged records and take appropriate action.</p>
+          </div>
+
+          <select id="flagFilter">
+
+            <option value="all">
+              All Flags
+            </option>
+
+            <option value="boundary">
+              Boundary Issue
+            </option>
+
+            <option value="ownership">
+              Ownership Issue
+            </option>
+
+            <option value="document">
+              Document Issue
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="verification-table-wrap">
+
+          <table class="verification-table">
+
+            <thead>
+
+              <tr>
+                <th>Parcel ID</th>
+                <th>Owner</th>
+                <th>Issue</th>
+                <th>Area</th>
+                <th>Priority</th>
+                <th>Action</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody id="flaggedTable">
+
+              <tr data-type="boundary">
+
+                <td>
+                  <strong>P-118</strong>
+                </td>
+
+                <td>
+                  Ramesh Yadav
+                </td>
+
+                <td>
+                  Boundary mismatch
+                </td>
+
+                <td>
+                  2.80 ha
+                </td>
+
+                <td>
+                  <span class="verification-badge flagged">
+                    High
+                  </span>
+                </td>
+
+                <td>
+
+                  <button
+                    class="verify-btn"
+                    onclick="viewParcel('P-118')"
+                  >
+                    Review
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <tr data-type="ownership">
+
+                <td>
+                  <strong>P-142</strong>
+                </td>
+
+                <td>
+                  Kavita Sharma
+                </td>
+
+                <td>
+                  Ownership mismatch
+                </td>
+
+                <td>
+                  1.60 ha
+                </td>
+
+                <td>
+                  <span class="verification-badge flagged">
+                    High
+                  </span>
+                </td>
+
+                <td>
+
+                  <button
+                    class="verify-btn"
+                    onclick="viewParcel('P-142')"
+                  >
+                    Review
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <tr data-type="document">
+
+                <td>
+                  <strong>P-156</strong>
+                </td>
+
+                <td>
+                  Mohan Verma
+                </td>
+
+                <td>
+                  Missing document
+                </td>
+
+                <td>
+                  0.95 ha
+                </td>
+
+                <td>
+                  <span class="verification-badge pending">
+                    Medium
+                  </span>
+                </td>
+
+                <td>
+
+                  <button
+                    class="verify-btn"
+                    onclick="viewParcel('P-156')"
+                  >
+                    Review
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <tr data-type="boundary">
+
+                <td>
+                  <strong>P-173</strong>
+                </td>
+
+                <td>
+                  Suresh Singh
+                </td>
+
+                <td>
+                  Boundary overlap
+                </td>
+
+                <td>
+                  3.45 ha
+                </td>
+
+                <td>
+                  <span class="verification-badge pending">
+                    Medium
+                  </span>
+                </td>
+
+                <td>
+
+                  <button
+                    class="verify-btn"
+                    onclick="viewParcel('P-173')"
+                  >
+                    Review
+                  </button>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      <section class="verification-info-grid">
+
+        <div class="verification-info-card">
+
+          <div class="info-card-icon">
+            ◈
+          </div>
+
+          <div>
+
+            <h3>
+              GIS Cross-Check
+            </h3>
+
+            <p>
+              Compare flagged parcel boundaries with GIS data
+              to identify spatial inconsistencies.
+            </p>
+
+            <button onclick="openMap()">
+              Open GIS Map →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="verification-info-card">
+
+          <div class="info-card-icon">
+            ✓
+          </div>
+
+          <div>
+
+            <h3>
+              Verification Center
+            </h3>
+
+            <p>
+              Review flagged parcels and update their
+              verification status.
+            </p>
+
+            <button onclick="openVerification()">
+              Open Verification →
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    function logout() {
+      window.location.href = "index.html";
+    }
+
+
+    function openMap() {
+      window.location.href = "index.html";
+    }
+
+
+    function openVerification() {
+      window.location.href = "officer-verification.html";
+    }
+
+
+    function viewParcel(parcelId) {
+      window.location.href =
+        "index.html?parcel=" + encodeURIComponent(parcelId);
+    }
+
+
+    document
+      .getElementById("flagFilter")
+      .addEventListener("change", function () {
+
+        const selected = this.value;
+
+        const rows =
+          document.querySelectorAll("#flaggedTable tr");
+
+        rows.forEach(function (row) {
+
+          if (selected === "all") {
+
+            row.style.display = "";
+
+            return;
+          }
+
+          row.style.display =
+            row.dataset.type === selected
+              ? ""
+              : "none";
+
+        });
+
+      });
+
+  </script>
+
+</body>
+
+</html>

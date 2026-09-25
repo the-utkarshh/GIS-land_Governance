@@ -27,5 +27,6 @@ app.include_router(router)
 def health_check():
     return {
         "status": "ok",
-        "project": "LandGov GIS"
+        "project": "LandGov GIS",
+        "message": "BhuNexus backend is running"
     }
