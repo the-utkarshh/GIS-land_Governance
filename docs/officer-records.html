@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BhuNexus — Land Records</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+
+<body class="dashboard-page officer-page records-page">
+
+
+<header class="site-header dashboard-header">
+
+  <div class="nav-inner">
+
+    <a href="index.html" class="brand">
+
+      <div class="brand-icon">
+
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+
+          <rect
+            width="36"
+            height="36"
+            rx="8"
+            fill="#1a6e8a"
+          />
+
+          <path
+            d="M8 26 L14 10 L21 18 L26 12 L28 26 Z"
+            fill="none"
+            stroke="#7dd3e8"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+
+          <circle
+            cx="26"
+            cy="12"
+            r="2.5"
+            fill="#f0c040"
+          />
+
+          <line
+            x1="8"
+            y1="26"
+            x2="28"
+            y2="26"
+            stroke="#7dd3e8"
+            stroke-width="1.2"
+          />
+
+        </svg>
+
+      </div>
+
+
+      <div class="brand-text">
+
+        <span class="brand-name">
+          BhuNexus
+        </span>
+
+        <span class="brand-tagline">
+          Digital Land Governance
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <div class="dashboard-user">
+
+      <span>
+        Land Officer
+      </span>
+
+      <button
+        onclick="logout()"
+        type="button"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<div class="dashboard-layout">
+
+
+  <!-- =====================================================
+       SIDEBAR
+       ===================================================== -->
+
+  <aside class="dashboard-sidebar officer-sidebar">
+
+    <div class="sidebar-profile">
+
+      <div class="profile-avatar">
+        LO
+      </div>
+
+      <div>
+
+        <strong>
+          Land Officer
+        </strong>
+
+        <small>
+          Administration Portal
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <nav class="dashboard-nav">
+
+      <a href="officer-dashboard.html">
+        <span>⌂</span>
+        Dashboard
+      </a>
+
+
+      <a href="index.html">
+        <span>◈</span>
+        GIS Parcel Map
+      </a>
+
+
+      <a href="officer-dashboard.html#parcelSearchSection">
+        <span>⌕</span>
+        Parcel Search
+      </a>
+
+
+      <a href="officer-verification.html">
+        <span>✓</span>
+        Verification
+      </a>
+
+
+      <a
+        href="officer-records.html"
+        class="active"
+      >
+        <span>▤</span>
+        Land Records
+      </a>
+
+
+      <a href="officer-flagged.html">
+        <span>⚑</span>
+        Flagged Parcels
+      </a>
+
+
+      <a href="officer-reports.html">
+        <span>▥</span>
+        Reports & Analytics
+      </a>
+
+
+      <a href="officer-dashboard.html#help">
+        <span>?</span>
+        Help
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+
+  <main class="dashboard-main officer-main">
+
+
+    <div class="dashboard-page-heading">
+
+      <div>
+
+        <p class="dashboard-eyebrow">
+          LAND RECORD MANAGEMENT
+        </p>
+
+        <h1>
+          Land Records
+        </h1>
+
+        <p>
+          Search, review and manage land ownership records
+          connected to the BhuNexus GIS database.
+        </p>
+
+      </div>
+
+
+      <div class="verification-status">
+
+        <span class="status-dot"></span>
+
+        <span id="recordsSystemStatus">
+          Connecting to Records Database...
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SEARCH
+         ===================================================== -->
+
+    <section class="records-search-panel">
+
+      <div class="records-search-title">
+
+        <h2>
+          Search Land Records
+        </h2>
+
+        <p>
+          Find a parcel using Parcel ID, owner name or land use.
+        </p>
+
+      </div>
+
+
+      <div class="records-search-box">
+
+        <input
+          type="text"
+          id="recordSearch"
+          placeholder="Search Parcel ID, Owner Name..."
+          autocomplete="off"
+        />
+
+
+        <select id="recordType">
+
+          <option value="all">
+            All Land Use
+          </option>
+
+          <option value="Agricultural">
+            Agricultural
+          </option>
+
+          <option value="Residential">
+            Residential
+          </option>
+
+          <option value="Commercial">
+            Commercial
+          </option>
+
+          <option value="Mixed Use">
+            Mixed Use
+          </option>
+
+        </select>
+
+
+        <button
+          onclick="searchRecords()"
+          type="button"
+        >
+          Search Records
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SUMMARY
+         ===================================================== -->
+
+    <section class="records-summary-grid">
+
+
+      <div class="records-summary-card">
+
+        <span class="records-summary-icon">
+          ▤
+        </span>
+
+        <div>
+
+          <strong id="totalRecords">
+            —
+          </strong>
+
+          <span>
+            Total Records
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="records-summary-card">
+
+        <span class="records-summary-icon verified">
+          ✓
+        </span>
+
+        <div>
+
+          <strong id="verifiedRecords">
+            —
+          </strong>
+
+          <span>
+            Verified Records
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="records-summary-card">
+
+        <span class="records-summary-icon pending">
+          ◷
+        </span>
+
+        <div>
+
+          <strong id="pendingRecords">
+            —
+          </strong>
+
+          <span>
+            Under Review
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="records-summary-card">
+
+        <span class="records-summary-icon flagged">
+          ⚑
+        </span>
+
+        <div>
+
+          <strong id="flaggedRecords">
+            —
+          </strong>
+
+          <span>
+            Flagged
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RECORDS TABLE
+         ===================================================== -->
+
+    <section class="records-panel">
+
+
+      <div class="records-panel-header">
+
+        <div>
+
+          <h2>
+            Registered Land Records
+          </h2>
+
+          <p>
+            Parcel ownership and land information retrieved
+            from the GIS backend.
+          </p>
+
+        </div>
+
+
+        <span
+          class="records-count"
+          id="recordsCount"
+        >
+          Loading...
+        </span>
+
+      </div>
+
+
+
+      <div class="records-table-wrap">
+
+        <table class="records-table">
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Parcel ID
+              </th>
+
+              <th>
+                Owner
+              </th>
+
+              <th>
+                Land Use
+              </th>
+
+              <th>
+                Area
+              </th>
+
+              <th>
+                Location
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Action
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="recordsTable">
+
+            <tr>
+
+              <td colspan="7" style="text-align:center;">
+                Loading land records...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   BhuNexus Backend
+   ========================================================= */
+
+const API_BASE =
+  "https://gis-bhunexus-backend.onrender.com/api";
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================================================
+   VIEW PARCEL ON GIS MAP
+   ========================================================= */
+
+function viewRecord(parcelId) {
+
+  window.location.href =
+    "index.html?parcel=" +
+    encodeURIComponent(parcelId);
+
+}
+
+
+/* =========================================================
+   GLOBAL RECORD DATA
+   ========================================================= */
+
+let allRecords = [];
+
+
+/* =========================================================
+   NORMALIZE BACKEND RECORD
+   Handles different possible backend field names.
+   ========================================================= */
+
+function normalizeRecord(parcel) {
+
+  const parcelId =
+    parcel.parcel_id ??
+    parcel.id ??
+    parcel.parcelId ??
+    "Unknown";
+
+
+  const owner =
+    parcel.owner ??
+    parcel.owner_name ??
+    parcel.ownerName ??
+    parcel.name ??
+    "Not Available";
+
+
+  const landUse =
+    parcel.land_use ??
+    parcel.landUse ??
+    parcel.land_type ??
+    parcel.landType ??
+    "Not Available";
+
+
+  const area =
+    parcel.area ??
+    parcel.area_hectares ??
+    parcel.area_ha ??
+    "—";
+
+
+  const location =
+    parcel.location ??
+    parcel.village ??
+    parcel.district ??
+    parcel.address ??
+    "—";
+
+
+  let status =
+    parcel.status ??
+    parcel.verification_status ??
+    parcel.verificationStatus ??
+    "Verified";
+
+
+  status =
+    String(status);
+
+
+  return {
+
+    parcelId:
+      String(parcelId),
+
+    owner:
+      String(owner),
+
+    landUse:
+      String(landUse),
+
+    area:
+      String(area),
+
+    location:
+      String(location),
+
+    status:
+      status
+
+  };
+
+}
+
+
+/* =========================================================
+   STATUS NORMALIZATION
+   ========================================================= */
+
+function normalizeStatus(status) {
+
+  const value =
+    String(status)
+      .toLowerCase()
+      .trim();
+
+
+  if (
+    value.includes("flag")
+  ) {
+
+    return "flagged";
+
+  }
+
+
+  if (
+    value.includes("pending") ||
+    value.includes("review") ||
+    value.includes("under")
+  ) {
+
+    return "pending";
+
+  }
+
+
+  return "verified";
+
+}
+
+
+/* =========================================================
+   FORMAT AREA
+   ========================================================= */
+
+function formatArea(area) {
+
+  if (
+    area === null ||
+    area === undefined ||
+    area === ""
+  ) {
+
+    return "—";
+
+  }
+
+
+  const number =
+    Number(area);
+
+
+  if (
+    !Number.isNaN(number)
+  ) {
+
+    return number.toFixed(2) + " ha";
+
+  }
+
+
+  const text =
+    String(area);
+
+
+  if (
+    text.toLowerCase().includes("ha")
+  ) {
+
+    return text;
+
+  }
+
+
+  return text;
+
+}
+
+
+/* =========================================================
+   LOAD RECORDS FROM BACKEND
+   ========================================================= */
+
+async function loadRecords() {
+
+  const table =
+    document.getElementById("recordsTable");
+
+  const statusText =
+    document.getElementById(
+      "recordsSystemStatus"
+    );
+
+
+  table.innerHTML = `
+    <tr>
+      <td colspan="7" style="text-align:center;">
+        Loading land records from GIS database...
+      </td>
+    </tr>
+  `;
+
+
+  try {
+
+    const response =
+      await fetch(
+        `${API_BASE}/parcels`
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Backend returned " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    let parcels = [];
+
+
+    if (
+      Array.isArray(data)
+    ) {
+
+      parcels = data;
+
+    }
+
+    else if (
+      Array.isArray(data.parcels)
+    ) {
+
+      parcels =
+        data.parcels;
+
+    }
+
+    else if (
+      Array.isArray(data.data)
+    ) {
+
+      parcels =
+        data.data;
+
+    }
+
+
+    allRecords =
+      parcels.map(
+        normalizeRecord
+      );
+
+
+    renderRecords(
+      allRecords
+    );
+
+
+    updateSummary(
+      allRecords
+    );
+
+
+    statusText.textContent =
+      "Records Database Online";
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Records API Error:",
+      error
+    );
+
+
+    statusText.textContent =
+      "Records Database Unavailable";
+
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center;">
+          Unable to load land records from the GIS backend.
+          Please check the backend connection.
+        </td>
+      </tr>
+    `;
+
+
+    document.getElementById(
+      "recordsCount"
+    ).textContent =
+      "0 Records";
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER RECORDS
+   ========================================================= */
+
+function renderRecords(records) {
+
+  const table =
+    document.getElementById(
+      "recordsTable"
+    );
+
+
+  if (
+    !records.length
+  ) {
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center;">
+          No land records found.
+        </td>
+      </tr>
+    `;
+
+
+    document.getElementById(
+      "recordsCount"
+    ).textContent =
+      "0 Records";
+
+
+    return;
+
+  }
+
+
+  table.innerHTML =
+    records.map(
+      function(record) {
+
+        const status =
+          normalizeStatus(
+            record.status
+          );
+
+
+        const statusLabel =
+          status.charAt(0).toUpperCase() +
+          status.slice(1);
+
+
+        return `
+
+          <tr
+            data-type="${escapeHtml(record.landUse)}"
+            data-status="${status}"
+          >
+
+            <td>
+              <strong>
+                ${escapeHtml(record.parcelId)}
+              </strong>
+            </td>
+
+
+            <td>
+              ${escapeHtml(record.owner)}
+            </td>
+
+
+            <td>
+              ${escapeHtml(record.landUse)}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                formatArea(record.area)
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHtml(record.location)}
+            </td>
+
+
+            <td>
+
+              <span
+                class="record-badge ${status}"
+              >
+                ${statusLabel}
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <button
+                class="record-view-btn"
+                type="button"
+                onclick="viewRecord('${escapeAttribute(record.parcelId)}')"
+              >
+                View
+              </button>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    ).join("");
+
+
+  document.getElementById(
+    "recordsCount"
+  ).textContent =
+    records.length +
+    (
+      records.length === 1
+        ? " Record"
+        : " Records"
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE SUMMARY
+   ========================================================= */
+
+function updateSummary(records) {
+
+  const total =
+    records.length;
+
+
+  let verified = 0;
+  let pending = 0;
+  let flagged = 0;
+
+
+  records.forEach(
+    function(record) {
+
+      const status =
+        normalizeStatus(
+          record.status
+        );
+
+
+      if (
+        status === "verified"
+      ) {
+
+        verified++;
+
+      }
+
+      else if (
+        status === "pending"
+      ) {
+
+        pending++;
+
+      }
+
+      else if (
+        status === "flagged"
+      ) {
+
+        flagged++;
+
+      }
+
+    }
+  );
+
+
+  document.getElementById(
+    "totalRecords"
+  ).textContent =
+    total;
+
+
+  document.getElementById(
+    "verifiedRecords"
+  ).textContent =
+    verified;
+
+
+  document.getElementById(
+    "pendingRecords"
+  ).textContent =
+    pending;
+
+
+  document.getElementById(
+    "flaggedRecords"
+  ).textContent =
+    flagged;
+
+}
+
+
+/* =========================================================
+   SEARCH RECORDS
+   ========================================================= */
+
+function searchRecords() {
+
+  const search =
+    document
+      .getElementById(
+        "recordSearch"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const type =
+    document.getElementById(
+      "recordType"
+    ).value;
+
+
+  const filtered =
+    allRecords.filter(
+      function(record) {
+
+        const searchableText =
+          (
+            record.parcelId +
+            " " +
+            record.owner +
+            " " +
+            record.landUse +
+            " " +
+            record.location
+          )
+            .toLowerCase();
+
+
+        const matchesSearch =
+          search === "" ||
+          searchableText.includes(
+            search
+          );
+
+
+        const matchesType =
+          type === "all" ||
+          record.landUse.toLowerCase() ===
+            type.toLowerCase();
+
+
+        return (
+          matchesSearch &&
+          matchesType
+        );
+
+      }
+    );
+
+
+  renderRecords(
+    filtered
+  );
+
+}
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+   ========================================================= */
+
+document
+  .getElementById(
+    "recordSearch"
+  )
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        searchRecords();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+   ========================================================= */
+
+function escapeAttribute(value) {
+
+  return String(value)
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
+
+loadRecords();
+
+</script>
+
+
+</body>
+
+</html>

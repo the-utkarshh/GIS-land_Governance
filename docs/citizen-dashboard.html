@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Dashboard | BhuNexus</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <!-- TOP NAVBAR -->
+    <header class="dashboard-navbar">
+
+        <div class="dashboard-brand">
+            <div class="brand-mark">B</div>
+
+            <div>
+                <div class="brand-name">BhuNexus</div>
+                <div class="brand-subtitle">Land Governance Platform</div>
+            </div>
+        </div>
+
+        <div class="dashboard-user">
+
+            <div class="user-info">
+                <strong>Citizen</strong>
+                <span>Welcome back</span>
+            </div>
+
+            <div class="user-avatar">
+                C
+            </div>
+
+            <button class="logout-btn" id="logoutBtn">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD LAYOUT -->
+    <main class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar">
+
+            <div class="sidebar-label">
+                CITIZEN PORTAL
+            </div>
+
+            <button class="sidebar-item active">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="sidebar-item" id="findLandBtn">
+                <span>⌕</span>
+                Find My Land
+            </button>
+
+            <button class="sidebar-item"
+                onclick="window.location.href='citizen-parcels.html'">
+                <span>▣</span>
+                My Land Parcels
+            </button>
+
+            <button class="sidebar-item"
+                onclick="window.location.href='citizen-records.html'">
+                <span>▤</span>
+                Land Records
+            </button>
+
+            <button class="sidebar-item"
+                onclick="window.location.href='citizen-applications.html'">
+                <span>◫</span>
+                Applications
+            </button>
+
+            <button class="sidebar-item"
+                onclick="window.location.href='citizen-notifications.html'">
+                <span>⚑</span>
+                Notifications
+            </button>
+
+            <div class="sidebar-bottom">
+
+                <button class="sidebar-item">
+                    <span>?</span>
+                    Help & Support
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <section class="dashboard-content">
+
+            <!-- WELCOME -->
+            <div class="dashboard-welcome">
+
+                <div>
+                    <span class="welcome-tag">
+                        CITIZEN DASHBOARD
+                    </span>
+
+                    <h1>
+                        Welcome to BhuNexus
+                    </h1>
+
+                    <p>
+                        Access your land information, discover parcels,
+                        view records and track your applications from one place.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    🗺️
+                </div>
+
+            </div>
+
+
+            <!-- QUICK STATS -->
+            <div class="dashboard-stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon">▦</div>
+                    <div>
+                        <span>My Parcels</span>
+                        <strong>3</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Verified Records</span>
+                        <strong>3</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◫</div>
+                    <div>
+                        <span>Applications</span>
+                        <strong>1</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">!</div>
+                    <div>
+                        <span>Notifications</span>
+                        <strong>2</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- FIND LAND -->
+            <div class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-kicker">
+                            GIS SEARCH
+                        </span>
+
+                        <h2>
+                            Find Your Land Parcel
+                        </h2>
+
+                        <p>
+                            Search using your Khasra, Survey or Parcel Number.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="land-search-card">
+
+                    <div class="land-search-icon">
+                        ⌕
+                    </div>
+
+                    <div class="land-search-main">
+
+                        <label for="dashboardParcelSearch">
+                            Parcel Search
+                        </label>
+
+                        <div class="dashboard-search-row">
+
+                            <input
+                                type="text"
+                                id="dashboardParcelSearch"
+                                placeholder="Enter Parcel ID, Khasra or Survey Number"
+                                autocomplete="off"
+                            >
+
+                            <button id="dashboardSearchBtn">
+                                Search Parcel
+                            </button>
+
+                        </div>
+
+                        <small>
+                            Example: P-124, 124, Khasra number or Survey number
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT PARCELS -->
+            <div class="dashboard-section">
+
+                <div class="section-heading section-heading-row">
+
+                    <div>
+                        <span class="section-kicker">
+                            YOUR LAND
+                        </span>
+
+                        <h2>
+                            Recent Land Parcels
+                        </h2>
+                    </div>
+
+                    <button class="view-all-btn"
+                        onclick="window.location.href='citizen-parcels.html'">
+                        View All
+                    </button>
+
+                </div>
+
+
+                <div class="parcel-dashboard-grid">
+
+                    <!-- PARCEL 1 -->
+                    <div class="dashboard-parcel-card">
+
+                        <div class="parcel-card-top">
+                            <div class="parcel-number">P-124</div>
+
+                            <span class="status-badge verified">
+                                Verified
+                            </span>
+                        </div>
+
+                        <h3>Agricultural Land</h3>
+
+                        <div class="parcel-card-details">
+
+                            <div>
+                                <span>Area</span>
+                                <strong>4,551 m²</strong>
+                            </div>
+
+                            <div>
+                                <span>Land Use</span>
+                                <strong>Agricultural</strong>
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="parcel-view-btn"
+                            data-parcel="P-124">
+                            View Parcel →
+                        </button>
+
+                    </div>
+
+
+                    <!-- PARCEL 2 -->
+                    <div class="dashboard-parcel-card">
+
+                        <div class="parcel-card-top">
+                            <div class="parcel-number">P-167</div>
+
+                            <span class="status-badge verified">
+                                Verified
+                            </span>
+                        </div>
+
+                        <h3>Residential Land</h3>
+
+                        <div class="parcel-card-details">
+
+                            <div>
+                                <span>Area</span>
+                                <strong>2,840 m²</strong>
+                            </div>
+
+                            <div>
+                                <span>Land Use</span>
+                                <strong>Residential</strong>
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="parcel-view-btn"
+                            data-parcel="P-167">
+                            View Parcel →
+                        </button>
+
+                    </div>
+
+
+                    <!-- PARCEL 3 -->
+                    <div class="dashboard-parcel-card">
+
+                        <div class="parcel-card-top">
+                            <div class="parcel-number">P-105</div>
+
+                            <span class="status-badge verified">
+                                Verified
+                            </span>
+                        </div>
+
+                        <h3>Mixed Use Land</h3>
+
+                        <div class="parcel-card-details">
+
+                            <div>
+                                <span>Area</span>
+                                <strong>3,275 m²</strong>
+                            </div>
+
+                            <div>
+                                <span>Land Use</span>
+                                <strong>Mixed Use</strong>
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="parcel-view-btn"
+                            data-parcel="P-105">
+                            View Parcel →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SERVICES -->
+            <div class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-kicker">
+                            SERVICES
+                        </span>
+
+                        <h2>
+                            Land Services
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="service-grid">
+
+                    <div class="service-card">
+                        <div class="service-icon">▣</div>
+
+                        <h3>Land Records</h3>
+
+                        <p>
+                            View available land ownership and parcel records.
+                        </p>
+
+                        <button>
+                            Open Records →
+                        </button>
+                    </div>
+
+
+                    <div class="service-card">
+                        <div class="service-icon">🗺️</div>
+
+                        <h3>GIS Map</h3>
+
+                        <p>
+                            Explore parcel boundaries and surrounding land information.
+                        </p>
+
+                        <button id="openMapBtn">
+                            Explore Map →
+                        </button>
+                    </div>
+
+
+                    <div class="service-card">
+                        <div class="service-icon">◫</div>
+
+                        <h3>Applications</h3>
+
+                        <p>
+                            Track your submitted land-related applications.
+                        </p>
+
+                        <button>
+                            Track Application →
+                        </button>
+                    </div>
+
+
+                    <div class="service-card">
+                        <div class="service-icon">⚑</div>
+
+                        <h3>Notifications</h3>
+
+                        <p>
+                            Stay updated about your land records and services.
+                        </p>
+
+                        <button>
+                            View Notifications →
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JS -->
+    <script>
+
+const API_BASE =
+    "https://gis-bhunexus-backend.onrender.com/api";
+
+
+/* =========================
+   MAKE SURE CITIZEN IS LOGGED IN
+========================= */
+
+sessionStorage.setItem("bhuRole", "citizen");
+
+
+/* =========================
+   SEARCH PARCEL
+========================= */
+
+async function searchParcel() {
+
+    const input =
+        document.getElementById("dashboardParcelSearch");
+
+    const value =
+        input.value.trim();
+
+    if (!value) {
+        alert("Please enter a Parcel, Khasra or Survey number.");
+        input.focus();
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/parcels/search?q=${encodeURIComponent(value)}`
+            );
+
+        if (!response.ok) {
+            throw new Error("Search failed");
+        }
+
+        const data =
+            await response.json();
+
+        const parcels =
+            Array.isArray(data)
+                ? data
+                : (data.parcels || data.data || []);
+
+        if (!parcels.length) {
+
+            alert(`No parcel found for "${value}".`);
+            return;
+        }
+
+        const parcel = parcels[0];
+
+        window.location.href =
+            `index.html?parcel=${encodeURIComponent(parcel.parcel_id)}`;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to search parcel right now. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+document
+    .getElementById("dashboardSearchBtn")
+    .addEventListener("click", searchParcel);
+
+
+/* =========================
+   ENTER KEY SEARCH
+========================= */
+
+document
+    .getElementById("dashboardParcelSearch")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            searchParcel();
+        }
+
+    });
+
+
+/* =========================
+   FIND MY LAND
+========================= */
+
+document
+    .getElementById("findLandBtn")
+    .addEventListener("click", function() {
+
+        const searchBox =
+            document.getElementById("dashboardParcelSearch");
+
+        searchBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        setTimeout(function() {
+            searchBox.focus();
+        }, 400);
+
+    });
+
+
+/* =========================
+   RECENT PARCELS
+========================= */
+
+document
+    .querySelectorAll(".parcel-view-btn")
+    .forEach(function(button) {
+
+        button.addEventListener("click", function() {
+
+            const parcel =
+                button.dataset.parcel;
+
+            window.location.href =
+                `index.html?parcel=${encodeURIComponent(parcel)}`;
+
+        });
+
+    });
+
+
+/* =========================
+   OPEN GIS MAP
+========================= */
+
+document
+    .getElementById("openMapBtn")
+    .addEventListener("click", function() {
+
+        window.location.href = "index.html";
+
+    });
+
+
+/* =========================
+   LAND RECORDS / APPLICATIONS / NOTIFICATIONS
+========================= */
+
+document
+    .querySelectorAll(".service-card")
+    .forEach(function(card) {
+
+        const heading =
+            card.querySelector("h3");
+
+        const button =
+            card.querySelector("button");
+
+        if (!heading || !button) return;
+
+        const title =
+            heading.textContent.trim();
+
+
+        if (title === "Land Records") {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-records.html";
+
+            });
+
+        }
+
+
+        if (title === "Applications") {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-applications.html";
+
+            });
+
+        }
+
+
+        if (title === "Notifications") {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-notifications.html";
+
+            });
+
+        }
+
+    });
+
+
+/* =========================
+   SIDEBAR BUTTONS
+========================= */
+
+document
+    .querySelectorAll(".sidebar-item")
+    .forEach(function(button) {
+
+        const text =
+            button.textContent.trim();
+
+
+        if (text.includes("My Land Parcels")) {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-parcels.html";
+
+            });
+
+        }
+
+
+        if (text.includes("Land Records")) {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-records.html";
+
+            });
+
+        }
+
+
+        if (text.includes("Applications")) {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-applications.html";
+
+            });
+
+        }
+
+
+        if (text.includes("Notifications")) {
+
+            button.addEventListener("click", function() {
+
+                window.location.href =
+                    "citizen-notifications.html";
+
+            });
+
+        }
+
+
+        if (text.includes("Help & Support")) {
+
+            button.addEventListener("click", function() {
+
+                alert(
+                    "For support, please contact the BhuNexus Land Governance Help Desk."
+                );
+
+            });
+
+        }
+
+    });
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener("click", function() {
+
+        sessionStorage.removeItem("bhuRole");
+        sessionStorage.removeItem("bhunexusMapSource");
+
+        window.location.href =
+            "index.html";
+
+    });
+
+</script>
+
+</body>
+</html>

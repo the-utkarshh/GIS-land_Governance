@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BhuNexus — Citizen Login</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="auth-page">
+
+  <header class="site-header">
+    <div class="nav-inner">
+
+      <a href="index.html" class="brand" aria-label="BhuNexus Home">
+
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <rect width="36" height="36" rx="8" fill="#1a6e8a" />
+
+            <path
+              d="M8 26 L14 10 L21 18 L26 12 L28 26 Z"
+              fill="none"
+              stroke="#7dd3e8"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+
+            <circle cx="26" cy="12" r="2.5" fill="#f0c040" />
+
+            <line
+              x1="8"
+              y1="26"
+              x2="28"
+              y2="26"
+              stroke="#7dd3e8"
+              stroke-width="1.2"
+            />
+
+          </svg>
+        </div>
+
+        <div class="brand-text">
+          <span class="brand-name">BhuNexus</span>
+          <span class="brand-tagline">Digital Land Governance</span>
+        </div>
+
+      </a>
+
+      <a href="index.html" class="auth-home-link">
+        ← Back to Home
+      </a>
+
+    </div>
+  </header>
+
+
+  <main class="auth-main">
+
+    <section class="auth-card">
+
+      <div class="auth-icon citizen-icon">
+        <span>👤</span>
+      </div>
+
+      <p class="auth-eyebrow">CITIZEN PORTAL</p>
+
+      <h1>Citizen Login</h1>
+
+      <p class="auth-description">
+        Access your land records, applications and citizen services
+        through BhuNexus.
+      </p>
+
+
+      <form id="citizenLoginForm" class="auth-form">
+
+        <div class="auth-field">
+
+          <label for="citizenId">
+            Mobile Number / Citizen ID
+          </label>
+
+          <input
+            type="text"
+            id="citizenId"
+            placeholder="Enter mobile number or citizen ID"
+            autocomplete="username"
+            required
+          />
+
+        </div>
+
+
+        <div class="auth-field">
+
+          <label for="citizenPassword">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="citizenPassword"
+            placeholder="Enter password"
+            autocomplete="current-password"
+            required
+          />
+
+        </div>
+
+
+        <div class="auth-options">
+
+          <label class="remember-option">
+            <input type="checkbox" />
+            <span>Remember me</span>
+          </label>
+
+          <a href="#" onclick="return false;">
+            Forgot password?
+          </a>
+
+        </div>
+
+
+        <button type="submit" class="auth-submit">
+          Login as Citizen
+          <span>→</span>
+        </button>
+
+      </form>
+
+
+      <div class="demo-login-note">
+
+        <strong>Prototype Demo</strong>
+
+        <span>
+          Use any non-empty ID and password to continue.
+        </span>
+
+      </div>
+
+
+      <div class="auth-divider">
+        <span>OR</span>
+      </div>
+
+
+      <a href="officer-login.html" class="switch-login">
+        Login as Officer
+      </a>
+
+
+      <a href="index.html" class="auth-back">
+        ← Return to BhuNexus
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const citizenLoginForm =
+      document.getElementById("citizenLoginForm");
+
+    citizenLoginForm.addEventListener("submit", function (event) {
+
+      event.preventDefault();
+
+      const citizenId =
+        document.getElementById("citizenId").value.trim();
+
+      const password =
+        document.getElementById("citizenPassword").value.trim();
+
+
+      if (!citizenId || !password) {
+
+        alert("Please enter your Citizen ID and password.");
+
+        return;
+      }
+
+
+      window.location.href = "citizen-dashboard.html";
+
+    });
+
+  </script>
+
+</body>
+
+</html>

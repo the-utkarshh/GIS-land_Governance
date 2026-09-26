@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Land Parcels | BhuNexus</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .citizen-page {
+      min-height: 100vh;
+      background: #f4f7f9;
+    }
+
+    .citizen-content {
+      padding: 35px;
+      width: 100%;
+    }
+
+    .citizen-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .citizen-heading h1 {
+      margin: 5px 0;
+      font-size: 30px;
+    }
+
+    .citizen-heading p {
+      margin: 0;
+      color: #667085;
+    }
+
+    .citizen-kicker {
+      color: #1a6e8a;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .citizen-parcel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .citizen-parcel {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid #e5e9ed;
+      box-shadow: 0 8px 25px rgba(0,0,0,.05);
+    }
+
+    .citizen-parcel-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .citizen-parcel-id {
+      font-size: 20px;
+      font-weight: 800;
+      color: #123b4a;
+    }
+
+    .citizen-status {
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #e7f7ef;
+      color: #16834b;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .citizen-parcel h3 {
+      margin: 0 0 18px;
+      color: #243746;
+    }
+
+    .citizen-detail {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid #edf0f2;
+      color: #667085;
+    }
+
+    .citizen-detail strong {
+      color: #243746;
+    }
+
+    .citizen-view {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 9px;
+      background: #1a6e8a;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .citizen-view:hover {
+      opacity: .9;
+    }
+
+    @media(max-width: 900px) {
+      .citizen-parcel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .citizen-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body class="citizen-page">
+
+<header class="site-header">
+  <div class="nav-inner">
+
+    <a href="citizen-dashboard.html" class="brand">
+      <div class="brand-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect width="36" height="36" rx="8" fill="#1a6e8a"/>
+          <path d="M8 26 L14 10 L21 18 L26 12 L28 26 Z"
+            fill="none" stroke="#7dd3e8" stroke-width="1.5"/>
+          <circle cx="26" cy="12" r="2.5" fill="#f0c040"/>
+          <line x1="8" y1="26" x2="28" y2="26"
+            stroke="#7dd3e8" stroke-width="1.2"/>
+        </svg>
+      </div>
+
+      <div class="brand-text">
+        <span class="brand-name">BhuNexus</span>
+        <span class="brand-tagline">Digital Land Governance</span>
+      </div>
+    </a>
+
+    <a href="citizen-dashboard.html" class="auth-home-link">
+      ← Dashboard
+    </a>
+
+  </div>
+</header>
+
+<main class="citizen-content">
+
+  <div class="citizen-heading">
+    <div>
+      <span class="citizen-kicker">CITIZEN PORTAL</span>
+      <h1>My Land Parcels</h1>
+      <p>View and access your registered land parcels.</p>
+    </div>
+  </div>
+
+  <div class="citizen-parcel-grid">
+
+    <div class="citizen-parcel">
+      <div class="citizen-parcel-top">
+        <span class="citizen-parcel-id">P-124</span>
+        <span class="citizen-status">Verified</span>
+      </div>
+
+      <h3>Agricultural Land</h3>
+
+      <div class="citizen-detail">
+        <span>Area</span>
+        <strong>4,551 m²</strong>
+      </div>
+
+      <div class="citizen-detail">
+        <span>Land Use</span>
+        <strong>Agricultural</strong>
+      </div>
+
+      <button class="citizen-view" onclick="openParcel('P-124')">
+        View Parcel →
+      </button>
+    </div>
+
+
+    <div class="citizen-parcel">
+      <div class="citizen-parcel-top">
+        <span class="citizen-parcel-id">P-167</span>
+        <span class="citizen-status">Verified</span>
+      </div>
+
+      <h3>Residential Land</h3>
+
+      <div class="citizen-detail">
+        <span>Area</span>
+        <strong>2,840 m²</strong>
+      </div>
+
+      <div class="citizen-detail">
+        <span>Land Use</span>
+        <strong>Residential</strong>
+      </div>
+
+      <button class="citizen-view" onclick="openParcel('P-167')">
+        View Parcel →
+      </button>
+    </div>
+
+
+    <div class="citizen-parcel">
+      <div class="citizen-parcel-top">
+        <span class="citizen-parcel-id">P-105</span>
+        <span class="citizen-status">Verified</span>
+      </div>
+
+      <h3>Mixed Use Land</h3>
+
+      <div class="citizen-detail">
+        <span>Area</span>
+        <strong>3,275 m²</strong>
+      </div>
+
+      <div class="citizen-detail">
+        <span>Land Use</span>
+        <strong>Mixed Use</strong>
+      </div>
+
+      <button class="citizen-view" onclick="openParcel('P-105')">
+        View Parcel →
+      </button>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function openParcel(parcelId) {
+  window.location.href =
+    "index.html?parcel=" + encodeURIComponent(parcelId);
+}
+</script>
+
+</body>
+</html>

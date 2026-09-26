@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BhuNexus — Parcel Verification</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="dashboard-page officer-page">
+
+  <!-- HEADER -->
+  <header class="site-header dashboard-header">
+
+    <div class="nav-inner">
+
+      <a href="index.html" class="brand">
+
+        <div class="brand-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="8" fill="#1a6e8a"/>
+            <path
+              d="M8 26 L14 10 L21 18 L26 12 L28 26 Z"
+              fill="none"
+              stroke="#7dd3e8"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <circle cx="26" cy="12" r="2.5" fill="#f0c040"/>
+            <line
+              x1="8"
+              y1="26"
+              x2="28"
+              y2="26"
+              stroke="#7dd3e8"
+              stroke-width="1.2"
+            />
+          </svg>
+        </div>
+
+        <div class="brand-text">
+          <span class="brand-name">BhuNexus</span>
+          <span class="brand-tagline">Digital Land Governance</span>
+        </div>
+
+      </a>
+
+      <div class="dashboard-user">
+        <span>Land Officer</span>
+        <button onclick="logout()">Logout</button>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- DASHBOARD LAYOUT -->
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar officer-sidebar">
+
+      <div class="sidebar-profile">
+
+        <div class="profile-avatar">
+          LO
+        </div>
+
+        <div>
+          <strong>Land Officer</strong>
+          <small>Administration Portal</small>
+        </div>
+
+      </div>
+
+
+      <nav class="dashboard-nav">
+
+        <a href="officer-dashboard.html">
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a href="index.html">
+          <span>◈</span>
+          GIS Parcel Map
+        </a>
+
+        <a href="officer-dashboard.html#parcelSearchSection">
+          <span>⌕</span>
+          Parcel Search
+        </a>
+
+        <a href="officer-verification.html" class="active">
+          <span>✓</span>
+          Verification
+        </a>
+
+        <a href="officer-records.html">
+          <span>▤</span>
+          Land Records
+        </a>
+
+        <a href="officer-flagged.html">
+          <span>⚑</span>
+          Flagged Parcels
+        </a>
+
+        <a href="officer-reports.html">
+          <span>▥</span>
+          Reports & Analytics
+        </a>
+
+        <a href="officer-dashboard.html#help">
+          <span>?</span>
+          Help
+        </a>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="dashboard-main officer-main">
+
+      <div class="dashboard-page-heading">
+
+        <div>
+          <p class="dashboard-eyebrow">
+            RECORD MANAGEMENT
+          </p>
+
+          <h1>
+            Parcel Verification
+          </h1>
+
+          <p>
+            Review and verify land parcel records submitted through BhuNexus.
+          </p>
+        </div>
+
+        <div class="verification-status">
+          <span class="status-dot"></span>
+          Verification System Active
+        </div>
+
+      </div>
+
+
+      <!-- LOADING -->
+      <div
+        id="verificationLoading"
+        style="
+          padding:16px;
+          margin-bottom:18px;
+          border-radius:10px;
+          background:#eef7fa;
+          color:#1a6e8a;
+          font-size:14px;
+          display:none;
+        "
+      >
+        Loading parcel records from BhuNexus backend...
+      </div>
+
+
+      <!-- ERROR -->
+      <div
+        id="verificationError"
+        style="
+          padding:16px;
+          margin-bottom:18px;
+          border-radius:10px;
+          background:#fff1f1;
+          color:#b42318;
+          font-size:14px;
+          display:none;
+        "
+      ></div>
+
+
+      <!-- STATS -->
+      <section class="verification-stats">
+
+        <div class="verification-stat">
+
+          <span class="verification-stat-icon">
+            ✓
+          </span>
+
+          <div>
+            <strong id="verifiedCount">0</strong>
+            <span>Verified</span>
+          </div>
+
+        </div>
+
+
+        <div class="verification-stat">
+
+          <span class="verification-stat-icon pending">
+            ◷
+          </span>
+
+          <div>
+            <strong id="pendingCount">0</strong>
+            <span>Pending Review</span>
+          </div>
+
+        </div>
+
+
+        <div class="verification-stat">
+
+          <span class="verification-stat-icon flagged">
+            ⚑
+          </span>
+
+          <div>
+            <strong id="flaggedCount">0</strong>
+            <span>Flagged</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- VERIFICATION TABLE -->
+      <section class="verification-panel">
+
+        <div class="verification-panel-header">
+
+          <div>
+            <h2>Parcel Verification</h2>
+            <p>
+              Records loaded from the BhuNexus backend
+            </p>
+          </div>
+
+          <select id="verificationFilter">
+
+            <option value="all">
+              All Records
+            </option>
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="verified">
+              Verified
+            </option>
+
+            <option value="flagged">
+              Flagged
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="verification-table-wrap">
+
+          <table class="verification-table">
+
+            <thead>
+
+              <tr>
+
+                <th>Parcel ID</th>
+
+                <th>Owner</th>
+
+                <th>Land Use</th>
+
+                <th>Area</th>
+
+                <th>Status</th>
+
+                <th>Action</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="verificationTable">
+
+              <!-- Backend data inserted here -->
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+
+      <!-- INFO CARDS -->
+      <section class="verification-info-grid">
+
+        <div class="verification-info-card">
+
+          <div class="info-card-icon">
+            ◈
+          </div>
+
+          <div>
+
+            <h3>
+              GIS Cross-Check
+            </h3>
+
+            <p>
+              Compare parcel boundaries and spatial information
+              before approving a record.
+            </p>
+
+            <button onclick="openMap()">
+              Open GIS Map →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="verification-info-card">
+
+          <div class="info-card-icon">
+            ▤
+          </div>
+
+          <div>
+
+            <h3>
+              Land Records
+            </h3>
+
+            <p>
+              Access ownership and registration information
+              associated with verified parcels.
+            </p>
+
+            <button onclick="openRecords()">
+              View Records →
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    /* =========================================
+       BHUNEXUS BACKEND
+    ========================================= */
+
+    const API_BASE =
+      "https://gis-bhunexus-backend.onrender.com/api";
+
+
+    let allParcels = [];
+
+
+    /* =========================================
+       BASIC NAVIGATION
+    ========================================= */
+
+    function logout() {
+
+      sessionStorage.removeItem("bhunexusMapSource");
+
+      window.location.href = "index.html";
+
+    }
+
+
+    function openMap() {
+
+      sessionStorage.setItem(
+        "bhunexusMapSource",
+        "officer"
+      );
+
+      window.location.href = "index.html";
+
+    }
+
+
+    function openRecords() {
+
+      window.location.href =
+        "officer-records.html";
+
+    }
+
+
+    function viewParcel(parcelId) {
+
+      sessionStorage.setItem(
+        "bhunexusMapSource",
+        "officer"
+      );
+
+      window.location.href =
+        "index.html?parcel=" +
+        encodeURIComponent(parcelId);
+
+    }
+
+
+    /* =========================================
+       HELPERS
+    ========================================= */
+
+    function getParcelId(parcel) {
+
+      return (
+        parcel.parcel_id ||
+        parcel.parcelId ||
+        parcel.id ||
+        "Unknown"
+      );
+
+    }
+
+
+    function getOwner(parcel) {
+
+      return (
+        parcel.owner ||
+        parcel.owner_name ||
+        parcel.ownerName ||
+        parcel.land_owner ||
+        "Not Available"
+      );
+
+    }
+
+
+    function getLandUse(parcel) {
+
+      return (
+        parcel.land_use ||
+        parcel.landUse ||
+        parcel.use ||
+        "Not Available"
+      );
+
+    }
+
+
+    function getArea(parcel) {
+
+      const area =
+        parcel.area ||
+        parcel.area_ha ||
+        parcel.areaHa ||
+        parcel.size;
+
+      if (area === undefined || area === null) {
+        return "—";
+      }
+
+      if (
+        typeof area === "number" ||
+        !isNaN(Number(area))
+      ) {
+
+        return Number(area).toFixed(2) + " ha";
+
+      }
+
+      return area;
+
+    }
+
+
+    function getStatus(parcel) {
+
+      const rawStatus =
+        parcel.status ||
+        parcel.verification_status ||
+        parcel.verificationStatus ||
+        parcel.record_status ||
+        "pending";
+
+      return String(rawStatus)
+        .toLowerCase()
+        .trim();
+
+    }
+
+
+    function normalizeStatus(status) {
+
+      if (
+        status.includes("verify") ||
+        status === "approved"
+      ) {
+
+        return "verified";
+
+      }
+
+      if (
+        status.includes("flag") ||
+        status.includes("reject")
+      ) {
+
+        return "flagged";
+
+      }
+
+      return "pending";
+
+    }
+
+
+    /* =========================================
+       LOAD PARCELS FROM BACKEND
+    ========================================= */
+
+    async function loadVerificationData() {
+
+      const loading =
+        document.getElementById(
+          "verificationLoading"
+        );
+
+      const errorBox =
+        document.getElementById(
+          "verificationError"
+        );
+
+
+      loading.style.display = "block";
+
+      errorBox.style.display = "none";
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API_BASE}/parcels`
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            `Backend returned HTTP ${response.status}`
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        /*
+          Backend may return:
+
+          [
+            {...},
+            {...}
+          ]
+
+          OR
+
+          {
+            parcels: [...]
+          }
+
+          OR
+
+          {
+            data: [...]
+          }
+        */
+
+        if (Array.isArray(data)) {
+
+          allParcels = data;
+
+        }
+
+        else if (
+          data &&
+          Array.isArray(data.parcels)
+        ) {
+
+          allParcels = data.parcels;
+
+        }
+
+        else if (
+          data &&
+          Array.isArray(data.data)
+        ) {
+
+          allParcels = data.data;
+
+        }
+
+        else {
+
+          throw new Error(
+            "Backend response does not contain parcel records."
+          );
+
+        }
+
+
+        updateStats();
+
+        renderTable(
+          allParcels
+        );
+
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Verification backend error:",
+          error
+        );
+
+
+        errorBox.textContent =
+          "Could not load parcel records from the backend. Please check the backend connection.";
+
+
+        errorBox.style.display = "block";
+
+
+        allParcels = [];
+
+        updateStats();
+
+        renderTable([]);
+
+      }
+
+
+      finally {
+
+        loading.style.display = "none";
+
+      }
+
+    }
+
+
+    /* =========================================
+       UPDATE STATS
+    ========================================= */
+
+    function updateStats() {
+
+      let verified = 0;
+
+      let pending = 0;
+
+      let flagged = 0;
+
+
+      allParcels.forEach(
+        function(parcel) {
+
+          const status =
+            normalizeStatus(
+              getStatus(parcel)
+            );
+
+
+          if (status === "verified") {
+
+            verified++;
+
+          }
+
+          else if (status === "flagged") {
+
+            flagged++;
+
+          }
+
+          else {
+
+            pending++;
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        "verifiedCount"
+      ).textContent = verified;
+
+
+      document.getElementById(
+        "pendingCount"
+      ).textContent = pending;
+
+
+      document.getElementById(
+        "flaggedCount"
+      ).textContent = flagged;
+
+    }
+
+
+    /* =========================================
+       RENDER TABLE
+    ========================================= */
+
+    function renderTable(parcels) {
+
+      const table =
+        document.getElementById(
+          "verificationTable"
+        );
+
+
+      table.innerHTML = "";
+
+
+      if (
+        !parcels ||
+        parcels.length === 0
+      ) {
+
+        table.innerHTML = `
+
+          <tr>
+
+            <td
+              colspan="6"
+              style="
+                text-align:center;
+                padding:30px;
+                color:#777;
+              "
+            >
+              No parcel records found.
+            </td>
+
+          </tr>
+
+        `;
+
+        return;
+
+      }
+
+
+      parcels.forEach(
+        function(parcel) {
+
+          const parcelId =
+            getParcelId(parcel);
+
+          const owner =
+            getOwner(parcel);
+
+          const landUse =
+            getLandUse(parcel);
+
+          const area =
+            getArea(parcel);
+
+          const status =
+            normalizeStatus(
+              getStatus(parcel)
+            );
+
+
+          const row =
+            document.createElement("tr");
+
+
+          row.dataset.status =
+            status;
+
+
+          let statusText =
+            "Pending";
+
+
+          if (status === "verified") {
+
+            statusText =
+              "Verified";
+
+          }
+
+          else if (status === "flagged") {
+
+            statusText =
+              "Flagged";
+
+          }
+
+
+          const actionText =
+            status === "pending"
+              ? "Review"
+              : "View";
+
+
+          const actionClass =
+            status === "pending"
+              ? "verify-btn"
+              : "verify-btn view";
+
+
+          row.innerHTML = `
+
+            <td>
+              <strong>
+                ${escapeHTML(parcelId)}
+              </strong>
+            </td>
+
+            <td>
+              ${escapeHTML(owner)}
+            </td>
+
+            <td>
+              ${escapeHTML(landUse)}
+            </td>
+
+            <td>
+              ${escapeHTML(area)}
+            </td>
+
+            <td>
+
+              <span
+                class="verification-badge ${status}"
+              >
+                ${statusText}
+              </span>
+
+            </td>
+
+            <td>
+
+              <button
+                class="${actionClass}"
+                data-parcel-id="${escapeHTML(parcelId)}"
+              >
+                ${actionText}
+              </button>
+
+            </td>
+
+          `;
+
+
+          const button =
+            row.querySelector("button");
+
+
+          button.addEventListener(
+            "click",
+            function() {
+
+              if (
+                status === "pending"
+              ) {
+
+                verifyParcel(
+                  parcelId,
+                  button,
+                  row
+                );
+
+              }
+
+              else {
+
+                viewParcel(
+                  parcelId
+                );
+
+              }
+
+            }
+          );
+
+
+          table.appendChild(row);
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       SAFE HTML
+    ========================================= */
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================
+       VERIFY PARCEL
+       
+       IMPORTANT:
+       Backend currently has no confirmed
+       verification-update endpoint.
+       
+       So this updates the current UI only.
+    ========================================= */
+
+    function verifyParcel(
+      parcelId,
+      button,
+      row
+    ) {
+
+      const confirmed =
+        confirm(
+          `Verify parcel ${parcelId}?`
+        );
+
+
+      if (!confirmed) {
+
+        return;
+
+      }
+
+
+      const badge =
+        row.querySelector(
+          ".verification-badge"
+        );
+
+
+      badge.textContent =
+        "Verified";
+
+
+      badge.classList.remove(
+        "pending",
+        "flagged"
+      );
+
+
+      badge.classList.add(
+        "verified"
+      );
+
+
+      row.dataset.status =
+        "verified";
+
+
+      button.textContent =
+        "View";
+
+
+      button.classList.add(
+        "view"
+      );
+
+
+      button.onclick = null;
+
+
+      button.replaceWith(
+        button.cloneNode(true)
+      );
+
+
+      const newButton =
+        row.querySelector("button");
+
+
+      newButton.addEventListener(
+        "click",
+        function() {
+
+          viewParcel(
+            parcelId
+          );
+
+        }
+      );
+
+
+      /*
+        Update local frontend state
+        so dashboard counts change
+        immediately.
+      */
+
+      const parcel =
+        allParcels.find(
+          function(item) {
+
+            return (
+              getParcelId(item) ===
+              parcelId
+            );
+
+          }
+        );
+
+
+      if (parcel) {
+
+        parcel.status =
+          "verified";
+
+      }
+
+
+      updateStats();
+
+    }
+
+
+    /* =========================================
+       FILTER
+    ========================================= */
+
+    document
+      .getElementById(
+        "verificationFilter"
+      )
+      .addEventListener(
+        "change",
+        function() {
+
+          const selected =
+            this.value;
+
+
+          const rows =
+            document.querySelectorAll(
+              "#verificationTable tr"
+            );
+
+
+          rows.forEach(
+            function(row) {
+
+              if (
+                selected === "all"
+              ) {
+
+                row.style.display =
+                  "";
+
+                return;
+
+              }
+
+
+              row.style.display =
+                row.dataset.status ===
+                selected
+                  ? ""
+                  : "none";
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================================
+       INITIAL LOAD
+    ========================================= */
+
+    loadVerificationData();
+
+  </script>
+
+</body>
+
+</html>
