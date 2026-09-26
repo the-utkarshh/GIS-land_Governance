@@ -4,7 +4,7 @@
    ========================================================= */
 
 const API_BASE =
-    "https://gis-bhunexus-backend.onrender.com/api";
+    "https://bhunexus-backend.onrender.com/api";
 
 
 /* =========================================================
