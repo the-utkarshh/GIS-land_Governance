@@ -2408,44 +2408,68 @@ function setupTooltip() {
 
 function findParcel(query) {
 
-    const q =
-        normalize(query);
-
+    const q = normalize(query);
 
     if (!q) {
         return null;
     }
 
+    /*
+     * Make parcel numbers flexible:
+     *
+     * 105
+     * P105
+     * P-105
+     *
+     * All become comparable.
+     */
+
+    function normalizeParcelId(value) {
+
+        return normalize(value)
+            .replace(/^P/, "");
+    }
+
 
     /*
-       Exact matching first.
-       This makes "105" reliable.
-    */
+     * 1. Exact match
+     */
 
     const exact =
-        parcels.find(
-            parcel => {
+        parcels.find(parcel => {
 
-                const values = [
-
-                    parcel.parcel_id,
-
-                    parcel.khasra_number,
-
-                    parcel.survey_number,
-
-                    parcel.owner_name
-                ];
-
-
-                return values.some(
-                    value =>
-                        normalize(
-                            value
-                        ) === q
+            const parcelId =
+                normalizeParcelId(
+                    parcel.parcel_id
                 );
-            }
-        );
+
+            const khasra =
+                normalize(
+                    parcel.khasra_number
+                );
+
+            const survey =
+                normalize(
+                    parcel.survey_number
+                );
+
+            const owner =
+                normalize(
+                    parcel.owner_name
+                );
+
+
+            return (
+                parcelId ===
+                    normalizeParcelId(q) ||
+
+                khasra === q ||
+
+                survey === q ||
+
+                owner === q
+            );
+        });
 
 
     if (exact) {
@@ -2454,36 +2478,47 @@ function findParcel(query) {
 
 
     /*
-       Partial matching second.
-    */
+     * 2. Partial match
+     */
 
     return (
-        parcels.find(
-            parcel => {
+        parcels.find(parcel => {
 
-                const values = [
-
-                    parcel.parcel_id,
-
-                    parcel.khasra_number,
-
-                    parcel.survey_number,
-
-                    parcel.owner_name
-                ];
-
-
-                return values.some(
-                    value =>
-                        normalize(
-                            value
-                        ).includes(q)
+            const parcelId =
+                normalizeParcelId(
+                    parcel.parcel_id
                 );
-            }
-        ) || null
+
+            const khasra =
+                normalize(
+                    parcel.khasra_number
+                );
+
+            const survey =
+                normalize(
+                    parcel.survey_number
+                );
+
+            const owner =
+                normalize(
+                    parcel.owner_name
+                );
+
+
+            return (
+                parcelId.includes(
+                    normalizeParcelId(q)
+                ) ||
+
+                khasra.includes(q) ||
+
+                survey.includes(q) ||
+
+                owner.includes(q)
+            );
+        }) || null
     );
 }
-
 
 /* =========================================================
    SEARCH AUTOCOMPLETE
