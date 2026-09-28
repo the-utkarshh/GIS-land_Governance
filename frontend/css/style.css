@@ -6281,3 +6281,50 @@ a {
   }
 
 }
+
+#parcelOverlay {
+    width: 100%;
+    height: 620px;
+    min-height: 500px;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    background: #dfe8d8;
+}
+
+#parcelOverlay .leaflet-container {
+    width: 100%;
+    height: 100%;
+    font-family: inherit;
+}
+
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+}
+
+.leaflet-control-zoom a {
+    font-weight: 700;
+}
+
+.bn-parcel-label {
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(30,80,50,0.35);
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #183c25;
+    white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+
+.bn-leaflet-popup h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.bn-leaflet-popup p {
+    margin: 4px 0;
+    font-size: 13px;
+}
